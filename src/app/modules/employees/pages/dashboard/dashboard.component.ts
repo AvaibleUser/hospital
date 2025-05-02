@@ -20,4 +20,8 @@ export class DashboardComponent {
     this.route.navigate(['employee-management/areas'])
   }
 
+  goRegister(){
+    this.route.navigate(['employee-management/register'])
+  }
+
 }
