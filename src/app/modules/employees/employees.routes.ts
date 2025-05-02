@@ -6,6 +6,12 @@ const editorRoutes: Routes = [
         loadComponent: () =>
             import('./pages/dashboard/dashboard.component').then((m) => m.DashboardComponent),
     },
+    {
+      path: 'areas',
+      loadComponent: () =>
+          import('./pages/areas/areas.component').then((m) => m.AreasComponent),
+  },
+
 ]
 
 export const EMPLOYEES_ROUTES: Routes = [

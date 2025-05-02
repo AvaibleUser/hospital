@@ -6,7 +6,7 @@ export const routes: Routes = [
         loadChildren: () => import('./modules/session/auth.routes').then(m => m.routes)
     },
     {
-        path: 'employees',
+        path: 'employee-management',
         loadChildren: () => import('./modules/employees/employees.routes').then(m => m.EMPLOYEES_ROUTES),
     },
 ];
