@@ -4,12 +4,9 @@ export interface Login {
 }
 
 export interface Register {
-    username: string
-    firstname: string
-    lastname: string
-    email: string
-    password: string
-    roleId: number
+    cui: string;
+    email: string;
+    password: string;
 }
 
 export interface Confirmation {
@@ -25,18 +22,15 @@ export interface Recover {
 export interface Session {
     token: string
     id: number
-    username: string
     email: string
-    profilePicture: string
-    isDeleted: boolean
+    cui: string
+    active: boolean
     roleName: Rol
-    firstname: string
-    lastname: string
 }
 
 export enum Rol {
-    EDITOR = "EDITOR",
-    ADMIN = "ADMIN",
-    USER = "USER",
-    ANNOUNCER = "ANNOUNCER"
+    PHARMACY = "Encargado de Farmacia",
+    EMPLOYEE = "Encargado de Empleados",
+    PATIENT = "Encargado de Pacientes",
+    ADMIN = "Administrador"
 }
