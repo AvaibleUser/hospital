@@ -16,6 +16,11 @@ const editorRoutes: Routes = [
     loadComponent: () =>
       import('./pages/register-employee/register-employee.component').then((m) => m.RegisterEmployeeComponent),
   },
+  {
+    path: 'employees',
+    loadComponent: () =>
+      import('./pages/employees/employees.component').then((m) => m.EmployeesComponent),
+  },
 
 ]
 
