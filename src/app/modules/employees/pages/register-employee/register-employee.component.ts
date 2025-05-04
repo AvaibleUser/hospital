@@ -206,6 +206,7 @@ export class RegisterEmployeeComponent {
         this.calssValue = this.classSucces
         this.titleModal = 'Empleado Registrado con exito'
         this.contentModal = 'El empleado ha sido registrado en el sistema, ahora ya puede gestionar sus vacaciones, despidos aumentos...'
+        this.modalRef2.nativeElement.showModal();
         this.modalRef2.nativeElement.addEventListener('close', () => {
           //TODO: redirigir 
           this.route.navigate(['']);

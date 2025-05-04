@@ -5,9 +5,10 @@ import { environment } from "@environment/environment.development";
     providedIn: 'root'
 })
 export class ApiConfigService {
+    
     private readonly API_BASE = environment.API_ROOT;
 
-    API_AUTH = `${this.API_BASE}/auth`;
+    API_AUTH = `${this.API_BASE}/gatekeeper/v1/auth`;
 
     //employees
     API_AREA = `${this.API_BASE}/areas`
