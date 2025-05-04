@@ -14,4 +14,8 @@ export const routes: Routes = [
         path: 'employee-management',
         loadChildren: () => import('./modules/employees/employees.routes').then(m => m.EMPLOYEES_ROUTES),
     },
+    {
+        path: 'patient-management',
+        loadChildren: () => import('@patients/patients.routes').then((m) => m.routes),
+    },
 ];
