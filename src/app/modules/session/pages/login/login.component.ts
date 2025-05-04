@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Login, Session } from '../../models/auth';
+import { AlertStore } from 'app/store/alert.store';
+import { AuthStore } from 'app/store/auth.store';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +12,14 @@ import { Login, Session } from '../../models/auth';
   templateUrl: './login.component.html',
 })
 export default class LoginComponent {
+
+  
   private readonly formBuilder = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly alertStore = inject(AlertStore);
+  private readonly store = inject(AuthStore);
+
 
   errorMessage: string = '';
   showPassword = false;
@@ -34,6 +41,10 @@ export default class LoginComponent {
 
     this.authService.login(login).subscribe({
       next: (value: Session) => {
+        console.log(value);
+        
+        this.store.updateSession(value)
+        this.redirect(value.roleName)
       },
       error: (error) => {
         this.handleErrorLogin(error);
@@ -43,12 +54,50 @@ export default class LoginComponent {
   }
 
   handleErrorLogin(error: any) {
-    const erroCode: number = error.status
+    const erroCode: number = error.error.status
+    const msg = error.error.message
     switch (erroCode) {
-      case 401:
+      case 500:
+        this.alertStore.addAlert({
+          message: `Ah ocurrido un error al iniciar sesion, intente mas tarde, diculpe las molestias`,
+          type: 'error',
+        });
+        break
+      default:
+        this.alertStore.addAlert({
+          message: msg,
+          type: 'error',
+        });
         break
     }
   }
+
+
+  redirect(role: string) {
+    switch (role) {
+      case 'Encargado de Farmacia':
+        this.router.navigate(['/pharmacy'])
+        break;
+
+      case 'Encargado de Empleados':
+        this.router.navigate(['/employee-management'])
+        break;
+      case 'Encargado de Pacientes':
+        this.router.navigate(['/patients'])
+        break;
+
+      case 'Administrador':
+        this.router.navigate(['/admin'])
+        break;
+
+      default:
+        // defult to USER
+        this.router.navigate(['/session/login'])
+        break;
+    }
+  }
+
+
 
   toRegister() {
     this.router.navigate(['/session/register']);
