@@ -89,8 +89,22 @@ export class RegisterEmployeeComponent {
     if (this.currentStep > 1) this.currentStep--;
   }
 
-  hanglerError(err: string) {
+  hanglerErrorMsg(err: string) {
     this.contentModal = err
+    this.modalRef2.nativeElement.showModal();
+  }
+
+  hanglerError(err: any) {
+    const erroCode: number = err.error.status
+    switch (erroCode) {
+      case 500:
+        this.contentModal = 'Ah ocurrido un error inesperado, intente mas tarde, perdone las molestias'
+        break
+      default:
+        this.contentModal = err.error.message
+        break
+    }
+
     this.modalRef2.nativeElement.showModal();
   }
 
@@ -101,40 +115,37 @@ export class RegisterEmployeeComponent {
 
     // Validar nombre
     if (!this.employee.name?.trim()) {
-      this.hanglerError('El nombre no puede estar vacío');
+      this.hanglerErrorMsg('El nombre no puede estar vacío');
       return false;
     }
 
     // Validar CUI 
     if (!this.employee.cui?.trim()) {
-      this.hanglerError('El CUI no puede estar vacío');
+      this.hanglerErrorMsg('El CUI no puede estar vacío');
       return false;
     }
 
     // Validar teléfono
     if (!this.employee.phone?.trim()) {
-      this.hanglerError('El teléfono no puede estar vacío');
+      this.hanglerErrorMsg('El teléfono no puede estar vacío');
       return false;
     }
 
     // Validar email 
     if (!this.employee.email?.trim()) {
-      this.hanglerError('El email no puede estar vacío');
+      this.hanglerErrorMsg('El email no puede estar vacío');
       return false;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.employee.email)) {
-      this.hanglerError('El email no tiene un formato válido');
+      this.hanglerErrorMsg('El email no tiene un formato válido');
       return false;
     }
 
-    //TODO: descomentar cuando ya se validen las areas
-
     // Validar área (debe ser mayor a 0)
-    //if (this.employee.areaId <= 0) {
-    // this.hanglerError('El área debe ser seleccionada');
-    //return false;
-    // }
+    if (this.employee.areaId <= 0) {
+      this.hanglerErrorMsg('El área debe ser seleccionada');
+      return false;
+    }
 
-    console.log(this.employee.isSpecialist);
 
 
     return true;
@@ -147,32 +158,32 @@ export class RegisterEmployeeComponent {
 
     // Validar fecha de inicio 
     if (!this.contract.startDate) {
-      this.hanglerError('La fecha de inicio es requerida');
+      this.hanglerErrorMsg('La fecha de inicio es requerida');
       return false;
     }
 
     // Validar salario (mayor a 0)
     if (this.contract.salary <= 0) {
-      this.hanglerError('El salario debe ser mayor a 0');
+      this.hanglerErrorMsg('El salario debe ser mayor a 0');
       return false;
     }
 
     // Validar IGGS (no negativo)
     if (this.contract.iggs < 0) {
-      this.hanglerError('El IGGS no puede ser negativo');
+      this.hanglerErrorMsg('El IGGS no puede ser negativo');
       return false;
     }
 
     // Validar IRTRA (no negativo)
     if (this.contract.irtra < 0) {
-      this.hanglerError('El IRTRA no puede ser negativo');
+      this.hanglerErrorMsg('El IRTRA no puede ser negativo');
       return false;
     }
 
     // Ejemplo: Validar que IGGS + IRTRA no sea mayor al 20% del salario
     const totalDeductions = this.contract.iggs + this.contract.irtra;
     if (totalDeductions > 20) {
-      this.hanglerError('Las deducciones no pueden exceder el 20% del salario');
+      this.hanglerErrorMsg('Las deducciones no pueden exceder el 20% del salario');
       return false;
     }
 
@@ -189,7 +200,7 @@ export class RegisterEmployeeComponent {
     }
 
     const newEmployee: CreateEmployeeDto = {
-      area: this.employee.areaId,
+      area: Number(this.employee.areaId),
       cui: this.employee.cui,
       fullName: this.employee.name,
       phone: this.employee.phone,
@@ -215,7 +226,7 @@ export class RegisterEmployeeComponent {
       error: err => {
         this.calssValue = this.classError
         this.titleModal = 'Error al registrar al empleado'
-        this.hanglerError(err.error.message)
+        this.hanglerError(err)
       }
     })
   }
