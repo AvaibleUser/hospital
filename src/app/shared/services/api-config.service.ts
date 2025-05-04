@@ -27,16 +27,11 @@ export class ApiConfigService {
     API_PURCHES = `${this.API_BASE_PHARMACY}/purchaches`;
     API_SALES = `${this.API_BASE_PHARMACY}/sales`;
 
-
-
     //users
     API_USER = `${this.API_BASE_AUTH}/user`;
     API_ROL = `${this.API_BASE_AUTH}/roles`;
 
     //ward
     API_PATIENT = `${this.API_BASE_WARD}/patients`
-
-
-
 
 }

@@ -79,8 +79,9 @@ export default class ConfirmationComponent {
       case 'Encargado de Empleados':
         this.router.navigate(['/employee-management'])
         break;
+
       case 'Encargado de Pacientes':
-        this.router.navigate(['/patients'])
+        this.router.navigate(['/patient-management'])
         break;
 
       case 'Administrador':
