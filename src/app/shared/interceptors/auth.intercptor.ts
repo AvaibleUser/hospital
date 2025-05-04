@@ -16,6 +16,9 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
     }
 
     let session = localStorageService.getState().session;
+    if (!session.token) {
+      return next(req);
+    }
 
     const reqWithHeaders = req.clone({
         setHeaders: {
