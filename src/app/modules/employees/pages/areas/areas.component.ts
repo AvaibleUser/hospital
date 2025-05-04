@@ -63,6 +63,8 @@ export class AreasComponent {
         this.calssValue = this.classSucces
         this.titleModal = 'Area Registrada'
         this.contentModal = 'El area ha sido registrada exitosamente'
+        this.closeModal()
+        this.getAllAreas()
         this.modalRef2.nativeElement.showModal();
 
       },
@@ -108,6 +110,8 @@ export class AreasComponent {
         this.calssValue = this.classSucces
         this.titleModal = 'Area Actualizada'
         this.contentModal = 'El area ha sido Actuilizada exitosamente'
+        this.closeModal()
+        this.getAllAreas();
         this.modalRef2.nativeElement.showModal();
 
       },

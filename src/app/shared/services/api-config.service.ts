@@ -7,11 +7,14 @@ import { environment } from "@environment/environment.development";
 export class ApiConfigService {
     
     private readonly API_BASE = environment.API_ROOT;
+    private readonly API_BASE_AUTH = `${this.API_BASE}/gatekeeper/v1`
+    private readonly API_BASE_EMPLOYEE = `${this.API_BASE}/hr/v1`
 
-    API_AUTH = `${this.API_BASE}/gatekeeper/v1/auth`;
+    API_AUTH = `${this.API_BASE_AUTH}/auth`;
 
     //employees
-    API_AREA = `${this.API_BASE}/areas`
-    API_EMPLOYEE = `${this.API_BASE}/employee`
+    
+    API_AREA = `${this.API_BASE_EMPLOYEE}/areas`
+    API_EMPLOYEE = `${this.API_BASE_EMPLOYEE}/employees`
 
 }

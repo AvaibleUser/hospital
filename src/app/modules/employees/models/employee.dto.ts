@@ -21,3 +21,15 @@ export interface EmployeeResponseDto {
     isSpecialist: boolean;
     createdAt: Date;
 }
+
+export interface EmployeeDto {
+    id: number;
+    fullName: string;
+    cui: string;
+    phone: string;
+    email: string;
+    isSpecialist: boolean;
+    areaName: string;
+    createdAt: Date;
+    updatedAt: Date;
+}

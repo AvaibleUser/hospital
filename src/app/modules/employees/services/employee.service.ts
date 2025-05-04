@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ApiConfigService } from '@shared/services/api-config.service';
-import { CreateEmployeeDto, EmployeeResponseDto } from '../models/employee.dto';
+import { CreateEmployeeDto, EmployeeDto, EmployeeResponseDto } from '../models/employee.dto';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,4 +18,13 @@ export class EmployeeService {
   createArea(createEmployee: CreateEmployeeDto): Observable<EmployeeResponseDto> {
     return this._http.post<EmployeeResponseDto>(`${this.API_EMPLOYEE}`, createEmployee)
   }
+
+  getAllEmployees(): Observable<EmployeeDto[]> {
+    return this._http.get<EmployeeDto[]>(`${this.API_EMPLOYEE}`)
+  }
+
+  getAllEmployeesByAreaId(roleId:number): Observable<EmployeeDto[]> {
+    return this._http.get<EmployeeDto[]>(`${this.API_EMPLOYEE}/area/${roleId}`)
+  }
+
 }
