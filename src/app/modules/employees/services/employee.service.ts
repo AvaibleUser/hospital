@@ -13,6 +13,8 @@ export class EmployeeService {
   private readonly apiConfigService = inject(ApiConfigService);
   private readonly API_EMPLOYEE = this.apiConfigService.API_EMPLOYEE;
 
+  employee!: EmployeeDto;
+
   constructor() { }
 
   createArea(createEmployee: CreateEmployeeDto): Observable<EmployeeResponseDto> {
@@ -23,7 +25,7 @@ export class EmployeeService {
     return this._http.get<EmployeeDto[]>(`${this.API_EMPLOYEE}`)
   }
 
-  getAllEmployeesByAreaId(roleId:number): Observable<EmployeeDto[]> {
+  getAllEmployeesByAreaId(roleId: number): Observable<EmployeeDto[]> {
     return this._http.get<EmployeeDto[]>(`${this.API_EMPLOYEE}/area/${roleId}`)
   }
 

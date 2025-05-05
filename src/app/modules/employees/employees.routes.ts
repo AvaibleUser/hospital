@@ -21,6 +21,16 @@ const editorRoutes: Routes = [
     loadComponent: () =>
       import('./pages/employees/employees.component').then((m) => m.EmployeesComponent),
   },
+  {
+    path: 'view-employee/:slug',
+    loadComponent: () =>
+      import('./pages/view-employee/view-employee.component').then((m) => m.ViewEmployeeComponent),
+  },
+  {
+    path: 'view-history/:slug',
+    loadComponent: () =>
+      import('./pages/history/history.component').then((m) => m.HistoryComponent),
+  },
 
 ]
 
