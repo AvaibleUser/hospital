@@ -22,3 +22,8 @@ export interface NewContractDto {
 export interface FinishContractDto {
     description: string;
 }
+
+export interface UpdateSalaryDto {
+    salary: number;
+    isIncrement: boolean;
+}

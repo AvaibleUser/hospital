@@ -4,7 +4,7 @@
     <div class="flex flex-col md:flex-row gap-4 justify-end">
         <button class="btn-outline btn btn-accent" (click)="openNewContract()">Nuevo Contrato</button>
         @if (!contract.terminationReason) {
-        <button class="btn-outline btn btn-secondary" (click)="openModalFisnish()">Finalizar Contrato</button>
+        <button class="btn-outline btn btn-secondary" (click)="openModalFisnish(false)">Finalizar Contrato</button>
         }
     </div>
 
@@ -109,9 +109,9 @@
     <!-- Acciones -->
     <div class="flex flex-col md:flex-row gap-4 justify-end mt-6">
         @if (!contract.terminationReason) {
-        <button class="btn-outline btn btn-info">Aumento Salarial</button>
-        <button class="btn-outline btn btn-warning">ReducciónSalarial</button>
-        <button class="btn-outline btn btn-error">Despido</button>
+        <button class="btn-outline btn btn-info" (click)="openModalUpdateSalary(true)">Aumento Salarial</button>
+        <button class="btn-outline btn btn-warning" (click)="openModalUpdateSalary(false)">ReducciónSalarial</button>
+        <button class="btn-outline btn btn-error" (click)="openModalFisnish(true)">Despido</button> 
         }
 
     </div>
@@ -126,13 +126,49 @@
         </div>
     </div>
 </dialog>
+
+<dialog #modal3 class="modal">
+    <div class="modal-box">
+        @if (isIncremente) {
+        <h3 class="font-bold text-lg">Aumento salarial</h3>
+
+        <p class="text-sm text-gray-500 mb-4">
+            Al aumentar el salario se creara un nuevo contrato, este contrato mandentra los descuentos anteriores.
+        </p>
+        }@else {
+        <h3 class="font-bold text-lg">Reduccion salarial</h3>
+
+        <p class="text-sm text-gray-500 mb-4">
+            Al reducir el salario se creara un nuevo contrato, este contrato mandentra los descuentos anteriores.
+        </p>
+        }
+
+        <p class="py-2">Ingrese el nuevo salario (Q)</p>
+        <input type="number" [(ngModel)]="newSalary" class="input input-bordered w-full" placeholder="Q" min="0" />
+
+        <div class="modal-action">
+            <button class="btn-outline btn btn-success" (click)="updateSalary()">Confirmar</button>
+            <button class="btn-outline btn-outlin btn btn-error" (click)="closeModalUpadteSalary()">Cancelar</button>
+        </div>
+
+    </div>
+</dialog>
 }
 
+<!-- modal de finalizacion de contrato-->
 <dialog #modal1 class="modal">
     <div class="modal-box">
+
+        @if (isDimissal) {
+        <h3 class="font-bold text-lg">Despido de empleado</h3>
+
+        <p class="py-2">Ingrese la descripcion del despido</p>
+        }@else {
         <h3 class="font-bold text-lg">Finalizacion de Contrato</h3>
 
         <p class="py-2">Ingrese la descripcion de la finalizacion</p>
+        }
+
         <input type="text" [(ngModel)]="description" class="input input-bordered w-full" placeholder="fin contrato.." />
 
         <div class="modal-action">

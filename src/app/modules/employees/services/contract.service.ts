@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ApiConfigService } from '@shared/services/api-config.service';
 import { Observable } from 'rxjs';
-import { ContractDto, FinishContractDto, NewContractDto } from '../models/contract.dto';
+import { ContractDto, FinishContractDto, NewContractDto, UpdateSalaryDto } from '../models/contract.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +25,13 @@ export class ContractService {
 
   finishContract(contractId: number, finish: FinishContractDto): Observable<void> {
     return this._http.patch<void>(`${this.API_CONTRACT}/finish/${contractId}`, finish);
+  }
+
+  updateSalary(contractId: number, update:UpdateSalaryDto): Observable<void> {
+    return this._http.put<void>(`${this.API_CONTRACT}/update-salary/${contractId}`, update);
+  }
+
+  dismissalWork(contractId: number, finish: FinishContractDto): Observable<void> {
+    return this._http.patch<void>(`${this.API_CONTRACT}/dismissal-work/${contractId}`, finish);
   }
 }
