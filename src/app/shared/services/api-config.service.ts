@@ -13,8 +13,8 @@ export class ApiConfigService {
     API_AUTH = `${this.API_BASE_AUTH}/auth`;
 
     //employees
-    
     API_AREA = `${this.API_BASE_EMPLOYEE}/areas`
     API_EMPLOYEE = `${this.API_BASE_EMPLOYEE}/employees`
+    API_CONTRACT = `${this.API_BASE_EMPLOYEE}/contracts`
 
 }

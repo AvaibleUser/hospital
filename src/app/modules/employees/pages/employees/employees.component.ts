@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { AreaService } from '../../services/area.service';
 import { EmployeeService } from '../../services/employee.service';
 import { EmployeeDto } from '../../models/employee.dto';
+import { Router } from '@angular/router';
+import { SlugService } from '@shared/services/slug.service';
 
 @Component({
   selector: 'app-employees',
@@ -15,6 +17,8 @@ export class EmployeesComponent {
 
   private readonly _areaService = inject(AreaService)
   private readonly _employeeService = inject(EmployeeService)
+  private readonly slugSevice = inject(SlugService)
+  private readonly route = inject(Router)
 
 
 
@@ -64,6 +68,12 @@ export class EmployeesComponent {
 
     this.getAllEmployees();
 
+  }
+
+  goManagmentEmployee(employee:EmployeeDto){
+    this._employeeService.employee = employee
+    const slug = this.slugSevice.generateSlug(employee.cui);
+    this.route.navigate([`employee-management/view-employee/${slug}`]);
   }
 
 }
