@@ -31,6 +31,11 @@ const editorRoutes: Routes = [
     loadComponent: () =>
       import('./pages/history/history.component').then((m) => m.HistoryComponent),
   },
+  {
+    path: 'vacations',
+    loadComponent: () =>
+      import('./pages/vacations/vacations.component').then((m) => m.VacationsComponent),
+  },
 
 ]
 

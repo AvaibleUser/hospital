@@ -28,4 +28,8 @@ export class DashboardComponent {
     this.route.navigate(['employee-management/employees'])
   }
 
+  goVacations(){
+    this.route.navigate(['employee-management/vacations'])
+  }
+
 }
