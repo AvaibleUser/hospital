@@ -76,4 +76,10 @@ export class EmployeesComponent {
     this.route.navigate([`employee-management/view-employee/${slug}`]);
   }
 
+  goHistory(employee:EmployeeDto){
+    this._employeeService.employee = employee
+    const slug = this.slugSevice.generateSlug(employee.cui);
+    this.route.navigate([`employee-management/view-history/${slug}`]);
+  }
+
 }

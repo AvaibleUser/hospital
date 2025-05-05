@@ -34,4 +34,9 @@ export class ContractService {
   dismissalWork(contractId: number, finish: FinishContractDto): Observable<void> {
     return this._http.patch<void>(`${this.API_CONTRACT}/dismissal-work/${contractId}`, finish);
   }
+
+  getHistoryContractByEmployeeId(idEmployee:number): Observable<ContractDto[]> {
+    return this._http.get<ContractDto[]>(`${this.API_CONTRACT}/history/employee/${idEmployee}`)
+  }
+
 }
