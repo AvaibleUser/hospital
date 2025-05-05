@@ -18,7 +18,7 @@
       </a>
     </li>
 
-    <li [ngClass]="{ 'tooltip tooltip-right': isCollapsed }" data-tip="Mis Publicaciones">
+    <li [ngClass]="{ 'tooltip tooltip-right': isCollapsed }" data-tip="Registrar empleados">
       <a class="btn btn-ghost px-4 justify-start w-full" routerLink="/employee-management/register">
         <i-lucide [img]="PublishMagazine"></i-lucide>
         @if (!isCollapsed) {
@@ -27,8 +27,8 @@
       </a>
     </li>
 
-    <li [ngClass]="{ 'tooltip tooltip-right': isCollapsed }" data-tip="Publicar Revista">
-      <a class="btn btn-ghost px-4 justify-start w-full" routerLink="/employee-management/vacation">
+    <li [ngClass]="{ 'tooltip tooltip-right': isCollapsed }" data-tip="Gestionar Vacaciones">
+      <a class="btn btn-ghost px-4 justify-start w-full" routerLink="/employee-management/vacations">
         <i-lucide [img]="Magazines"></i-lucide>
         @if (!isCollapsed) {
         <span class="truncate">Vacaciones</span>
@@ -36,7 +36,7 @@
       </a>
     </li>
 
-    <li [ngClass]="{ 'tooltip tooltip-right': isCollapsed }" data-tip="Publicar Numero de Revista">
+    <li [ngClass]="{ 'tooltip tooltip-right': isCollapsed }" data-tip="Gestionar areas de trabajo">
       <a class="btn btn-ghost px-4 justify-start w-full" routerLink="/employee-management/areas">
         <i-lucide [img]="PublishIssue"></i-lucide>
         @if (!isCollapsed) {
@@ -45,7 +45,7 @@
       </a>
     </li>
 
-    <li [ngClass]="{ 'tooltip tooltip-right': isCollapsed }" data-tip="Cartera">
+    <li [ngClass]="{ 'tooltip tooltip-right': isCollapsed }" data-tip="Gestionar Empleados">
       <a class="btn btn-ghost px-4 justify-start w-full" routerLink="/employee-management/employees">
         <i-lucide [img]="Wallet"></i-lucide>
         @if (!isCollapsed) {
