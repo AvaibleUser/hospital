@@ -1,1 +1,57 @@
-<p>inventory works!</p>
+<div class="min-h-screen">
+    <!-- Header -->
+    <header class="navbar ">
+      <div class="flex-1">
+        <h1 class="text-2xl font-bold ml-4">Gestión de Inventario</h1>
+      </div>
+      <div class="flex flex-row gap-3">
+        <button class="btn btn-outline">Importar</button>
+        <button class="btn btn-outline">Exportar</button>
+        <button class="btn btn-primary">Nuevo Medicamento</button>
+      </div>
+    </header>
+
+    <!-- Body -->
+    <main class="container mx-auto p-4">
+      <p class="text-lg mb-4">
+        Gestione el inventario de medicamentos de la farmacia. Los medicamentos con stock bajo se muestran en rojo.
+      </p>
+
+      <!-- Search Bar -->
+      <div class="mb-4">
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm"
+          placeholder="Buscar medicamento..." 
+          class="input input-bordered w-full max-w-xs"
+        />
+        <button class="btn btn-primary ml-2">Buscar</button>
+      </div>
+
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Precio Unitario</th>
+              <th>Cantidad en Stock</th>
+              <th>Mínimo en Stock</th>
+              <th>Costo Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of filteredInventory" [ngClass]="{'bg-error bg-opacity-20': item.quantity < item.minStock}">
+              <td>{{ item.id }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.unitPrice | currency:'USD' }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.minStock }}</td>
+              <td>{{ (item.unitPrice * item.quantity) | currency:'USD' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
