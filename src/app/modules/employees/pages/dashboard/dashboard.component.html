@@ -5,19 +5,19 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 mb-6">
   <div class="bg-neutral-content	rounded-xl shadow-lg p-3 text-center">
     <!-- total de empleados -->
-    <app-tarjet [type]="'total_empleados'"></app-tarjet>
+    <app-tarjet [type]="'total_empleados'" [title]="'Total de empleados'" [value]="'15'" [label]="'total de empleados registrados'"></app-tarjet>
   </div>
   <div class="bg-neutral-content rounded-xl shadow-lg p-3 text-center">
     <!-- empleados con mas ventas -->
-    <app-tarjet [type]="'total_empleados'"></app-tarjet>
+    <app-tarjet [type]="'total_empleados'" [title]="'Empleado'" [value]="'Juan Tzul'" [label]="'empleado con mas ventas de medicamentos'"></app-tarjet>
   </div>
   <div class="bg-neutral-content rounded-xl shadow-lg p-3 text-center">
     <!-- VAcaciones -->
-    <app-tarjet [type]="'total_empleados'"></app-tarjet>
+    <app-tarjet [type]="'total_empleados'" [title]="'Vacaciones'" [value]="'15 dias'" [label]="'Dias de vacaciones'"></app-tarjet>
   </div>
   <div class="bg-neutral-content rounded-xl shadow-lg p-3 text-center">
     <!-- descuentos por igs y irtra -->
-    <app-tarjet [type]="'total_empleados'" [title]="'Descuentos'"></app-tarjet>
+    <app-tarjet [type]="'total_empleados'" [title]="'Descuentos'" [title]="'Descuentos'" [value]="'20%'" [label]="'Los descuentos no pueden exceder'"></app-tarjet>
   </div>
 </div>
 
@@ -65,6 +65,17 @@
       </div>
     </div>
   </div>
+
+    <!-- Card: Gestión de pagos a medicos espcialistas -->
+    <div class="card bg-base-100 shadow-xl border border-gray-200">
+      <div class="card-body">
+        <h2 class="card-title text-accent">Gestión de Pagos a especialistas</h2>
+        <p>Gestion de los pagos a medicos especialistas.</p>
+        <div class="card-actions justify-end">
+          <button class="btn btn-info" (click)="goToPayment()">Ir</button>
+        </div>
+      </div>
+    </div>
 
   <!-- Card: Reportes -->
   <div class="card bg-base-100 shadow-xl border border-gray-200">

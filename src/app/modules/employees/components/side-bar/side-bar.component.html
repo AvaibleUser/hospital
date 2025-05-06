@@ -54,6 +54,15 @@
       </a>
     </li>
 
+    <li [ngClass]="{ 'tooltip tooltip-right': isCollapsed }" data-tip="Gestion de pagos a medicos especialistas">
+      <a class="btn btn-ghost px-4 justify-start w-full" routerLink="/employee-management/payment-specialist">
+        <i-lucide [img]="Payment"></i-lucide>
+        @if (!isCollapsed) {
+        <span class="truncate">Pago especialistas</span>
+        }
+      </a>
+    </li>
+
     <li [ngClass]="{ 'tooltip tooltip-right': isCollapsed }" data-tip="Reportes">
       <a class="btn btn-ghost px-4 justify-start w-full" routerLink="/employee-management/reports">
         <i-lucide [img]="Reports"></i-lucide>

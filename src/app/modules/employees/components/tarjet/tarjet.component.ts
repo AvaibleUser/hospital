@@ -10,9 +10,9 @@ export class TarjetComponent {
 
   @Input() type!: string;
 
-  title = ''
-  value = '--'
-  label = ''
+  @Input() title = ''
+  @Input() value = '--'
+  @Input() label = ''
 
   
 

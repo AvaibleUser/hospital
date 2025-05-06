@@ -36,6 +36,11 @@ const editorRoutes: Routes = [
     loadComponent: () =>
       import('./pages/vacations/vacations.component').then((m) => m.VacationsComponent),
   },
+  {
+    path: 'payment-specialist',
+    loadComponent: () =>
+      import('./pages/pay-specialist/pay-specialist.component').then((m) => m.PaySpecialistComponent),
+  },
 
 ]
 

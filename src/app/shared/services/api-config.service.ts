@@ -17,5 +17,6 @@ export class ApiConfigService {
     API_EMPLOYEE = `${this.API_BASE_EMPLOYEE}/employees`
     API_CONTRACT = `${this.API_BASE_EMPLOYEE}/contracts`
     API_VACATION = `${this.API_BASE_EMPLOYEE}/vacations`
+    API_PAYMENT = `${this.API_BASE_EMPLOYEE}/payments`
 
 }

@@ -32,4 +32,8 @@ export class DashboardComponent {
     this.route.navigate(['employee-management/vacations'])
   }
 
+  goToPayment(){
+    this.route.navigate(['employee-management/payment-specialist'])
+  }
+
 }
