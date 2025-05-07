@@ -1,0 +1,93 @@
+<div class="card bg-base-300 shadow-md h-full">
+  <div class="card-body">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="card-title text-secondary">Hospitalizaciones</h2>
+      @if (!currentAdmission) {
+      <button class="btn btn-xs btn-primary">Nueva Admisión</button>
+      }
+    </div>
+
+    @if (currentAdmission; as admission) {
+    <div>
+      <div class="bg-info-content p-4 rounded-lg">
+        <div class="flex gap-2 items-start">
+          <div class="text-sm w-full">
+            <h3 class="font-semibold text-lg text-accent mb-2">
+              Admisión Actual
+            </h3>
+            <p>
+              <span class="opacity-70">Habitación:</span>
+              {{ admission.roomNumber }}
+            </p>
+            <p>
+              <span class="opacity-70">Fecha de ingreso:</span>
+              {{ admission.admissionDate | date }}
+            </p>
+            <p>
+              <span class="opacity-70">Estado:</span>
+              {{
+                admission.status === "ADMITTED" ? "Internado" : "Dado de alta"
+              }}
+            </p>
+          </div>
+
+          <div class="text-sm w-full">
+            <h3 class="font-semibold text-lg text-accent mb-2">
+              Personal Asignado
+            </h3>
+            @for (employee of admission.assignedEmployees; track employee.id) {
+            <p>
+              <span class="opacity-70">{{ typeToString(employee.type) }}:</span>
+              {{ employee.fullName }}
+            </p>
+            }
+          </div>
+        </div>
+        @if (admission.status === 'ADMITTED') {
+        <button class="btn btn-xs btn-error block mt-2 ml-auto w-fit">
+          Dar de Alta
+        </button>
+        }
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    }
+
+    <div class="overflow-x-auto">
+      <table class="table table-sm">
+        <thead class="text-accent">
+          <tr>
+            <th>Fecha Ingreso</th>
+            <th>Fecha Alta</th>
+            <th>Habitación</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (admission of admissions; track admission.id) {
+          <tr class="even:bg-base-200 hover:bg-accent-content">
+            <td>
+              {{ admission.admissionDate | date : "dd/MM/yyyy" }}
+            </td>
+            <td>
+              {{ (admission.dischargeDate | date : "dd/MM/yyyy") || "N/A" }}
+            </td>
+            <td>{{ admission.roomNumber }}</td>
+            <td>
+              <span
+                class="badge badge-sm badge-soft"
+                [class.badge-info]="admission.status === 'ADMITTED'"
+                [class.badge-success]="admission.status === 'DISCHARGED'"
+              >
+                {{ admission.status === "ADMITTED" ? "Activo" : "Finalizado" }}
+              </span>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

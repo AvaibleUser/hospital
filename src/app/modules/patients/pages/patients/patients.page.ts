@@ -17,7 +17,7 @@ export class PatientsPage implements OnInit {
   private readonly patientService = inject(PatientService);
   private readonly modalStore = inject(ModalStore);
 
-  readonly Bills = ReceiptText;
+  readonly Details = ReceiptText;
   readonly Edit = Pencil;
   readonly Add = Plus;
 

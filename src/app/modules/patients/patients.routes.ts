@@ -12,10 +12,10 @@ const patientsRoutes: Routes = [
       import('./pages/patients/patients.page').then((m) => m.PatientsPage),
   },
   {
-    path: 'patient/:id/bills',
+    path: 'patient/:id/details',
     loadComponent: () =>
-      import('./pages/patient-bills/patient-bills.page').then(
-        (m) => m.PatientBillsPage
+      import('./pages/patient-details/patient-details.page').then(
+        (m) => m.PatientDetailsPage
       ),
   },
 ];

@@ -1,0 +1,60 @@
+<div class="card bg-base-300 shadow-md h-full">
+  <div class="card-body">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="card-title text-secondary">Cirugías</h2>
+      <button class="btn btn-xs btn-primary">Agendar Cirugía</button>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="table table-sm">
+        <thead class="text-accent">
+          <tr>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Costos</th>
+            <th>Especialistas</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (surgery of surgeries; track surgery.id) {
+          <tr class="even:bg-base-200 hover:bg-accent-content">
+            <td>{{ surgery.performedDate | date : "dd/MM/yyyy" }}</td>
+            <td>{{ surgery.description || "N/A" }}</td>
+            <td>
+              <div class="text-xs">
+                <p>
+                  <span class="opacity-70">Hospital:</span>
+                  {{
+                    (surgery.tariffHospitalCost
+                      | currency : "GTQ" : "symbol-narrow") || "N/A"
+                  }}
+                </p>
+                <p>
+                  <span class="opacity-70">Honorarios:</span>
+                  {{
+                    (surgery.tariffSpecialistFee
+                      | currency : "GTQ" : "symbol-narrow") || "N/A"
+                  }}
+                </p>
+              </div>
+            </td>
+            <td>
+              <div class="text-xs">
+                @for (specialist of surgery.specialists; track specialist.id) {
+                <p>
+                  <span class="opacity-70">
+                    {{ typeToString(specialist.type) }}:
+                  </span>
+                  {{ specialist.fullName }}
+                </p>
+                }
+              </div>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
