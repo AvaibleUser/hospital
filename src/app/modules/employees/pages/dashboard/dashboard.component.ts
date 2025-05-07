@@ -36,4 +36,8 @@ export class DashboardComponent {
     this.route.navigate(['employee-management/payment-specialist'])
   }
 
+  goReports(){
+    this.route.navigate(['employee-management/home-reports'])
+  }
+
 }

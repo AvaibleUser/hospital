@@ -42,6 +42,18 @@ const editorRoutes: Routes = [
       import('./pages/pay-specialist/pay-specialist.component').then((m) => m.PaySpecialistComponent),
   },
 
+  {
+    path: 'home-reports',
+    loadComponent: () =>
+      import('./pages/reports/home-report/home-report.component').then((m) => m.HomeReportComponent),
+  },
+
+  {
+    path: 'report/history-contract',
+    loadComponent: () =>
+      import('./pages/reports/history-contract/history-contract.component').then((m) => m.HistoryContractComponent),
+  },
+
 ]
 
 export const EMPLOYEES_ROUTES: Routes = [
