@@ -11,6 +11,7 @@ import {
   Menu,
   Wallet,
   X,
+  CreditCard
 } from 'lucide-angular';
 
 @Component({
@@ -29,6 +30,7 @@ export class SideBarComponent {
   readonly PublishIssue = FilePlus;
   readonly Reports = ChartNoAxesCombined;
   readonly Wallet = Wallet;
+  readonly Payment = CreditCard;
 
   isCollapsed = true;
 
