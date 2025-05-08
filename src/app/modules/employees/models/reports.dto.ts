@@ -12,3 +12,23 @@ export interface HistoryEmployeeContractsDto {
     areaName: string;
     contracts: ContractDto[];
 }
+
+export interface AssignedDto {
+    admissionDate: Date;
+    dischargeDate: Date;
+    fullName: string;
+    cui: string;
+}
+
+export interface HistoryAssignedEmployee {
+    id: number;
+    fullName: string;
+    cui: string
+    email: string;
+    contract: ContractDto;
+    assignedList: AssignedDto[];
+}
+
+export interface ReportAssignedEmployeeDto {
+    report: HistoryAssignedEmployee[];
+}

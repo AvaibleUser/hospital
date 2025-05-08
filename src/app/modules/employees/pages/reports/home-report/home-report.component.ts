@@ -23,7 +23,7 @@ export class HomeReportComponent {
   }
 
   goRepostDoctors(){
-
+    this.route.navigate([`employee-management/report/doctors`]);
   }
 
 }
