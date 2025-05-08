@@ -3,6 +3,21 @@ import { PharmacyLayoutComponent } from './modules/pharmacy/layouts/pharmacy-lay
 
 export const routes: Routes = [
     {
+        path: '',
+        redirectTo: 'session',
+        pathMatch: 'full'
+    },
+
+    {   path: "session",
+        loadChildren: () => import('./modules/session/auth.routes').then(m => m.routes)
+    },
+    {
+        path: 'employee-management',
+        loadChildren: () => import('./modules/employees/employees.routes').then(m => m.EMPLOYEES_ROUTES),
+    },
+];
+export const routes: Routes = [
+    {
         path: "pharmacy",
         component: PharmacyLayoutComponent,
         children: [
