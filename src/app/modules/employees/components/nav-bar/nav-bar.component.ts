@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthStore } from 'app/store/auth.store';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,5 +9,8 @@ import { Component } from '@angular/core';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
+
+  private readonly router = inject(Router);
+  readonly authStore = inject(AuthStore);
 
 }

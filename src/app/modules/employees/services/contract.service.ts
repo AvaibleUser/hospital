@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ApiConfigService } from '@shared/services/api-config.service';
 import { Observable } from 'rxjs';
 import { ContractDto, FinishContractDto, NewContractDto, UpdateSalaryDto } from '../models/contract.dto';
+import { ReportEmployeeContracts } from '../models/reports.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,24 @@ export class ContractService {
 
   getHistoryContractByEmployeeId(idEmployee:number): Observable<ContractDto[]> {
     return this._http.get<ContractDto[]>(`${this.API_CONTRACT}/history/employee/${idEmployee}`)
+  }
+
+  getEmployeeContractReport(areId:number, startDate?: string, endDate?: string): Observable<ReportEmployeeContracts> {
+    let params = new HttpParams();
+    
+    if (startDate) params = params.set('startDate', startDate);
+    if (endDate) params = params.set('endDate', endDate);
+    
+    return this._http.get<ReportEmployeeContracts>(`${this.API_CONTRACT}/reports/employees/history/${areId}`,  { params })
+  }
+
+  getReportTerminatedContracts(areId:number, startDate?: string, endDate?: string): Observable<ReportEmployeeContracts> {
+    let params = new HttpParams();
+    
+    if (startDate) params = params.set('startDate', startDate);
+    if (endDate) params = params.set('endDate', endDate);
+    
+    return this._http.get<ReportEmployeeContracts>(`${this.API_CONTRACT}/reports/employees/history/terminated/${areId}`,  { params })
   }
 
 }

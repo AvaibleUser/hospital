@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ApiConfigService } from '@shared/services/api-config.service';
 import { CreateEmployeeDto, EmployeeDto, EmployeeResponseDto } from '../models/employee.dto';
 import { Observable } from 'rxjs';
+import { ReportAssignedEmployeeDto } from '../models/reports.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,14 @@ export class EmployeeService {
 
   getAllEmployeesByAreaId(roleId: number): Observable<EmployeeDto[]> {
     return this._http.get<EmployeeDto[]>(`${this.API_EMPLOYEE}/area/${roleId}`)
+  }
+
+  getAssignedReport(filter: number, startDate?: string, endDate?: string): Observable<ReportAssignedEmployeeDto> {
+    let params = new HttpParams();
+
+    if (startDate) params = params.set('startDate', startDate);
+    if (endDate) params = params.set('endDate', endDate);
+    return this._http.get<ReportAssignedEmployeeDto>(`${this.API_EMPLOYEE}/assigned/report/doctors/${filter}`, { params })
   }
 
 }
