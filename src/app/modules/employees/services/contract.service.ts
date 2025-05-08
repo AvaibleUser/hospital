@@ -49,4 +49,13 @@ export class ContractService {
     return this._http.get<ReportEmployeeContracts>(`${this.API_CONTRACT}/reports/employees/history/${areId}`,  { params })
   }
 
+  getReportTerminatedContracts(areId:number, startDate?: string, endDate?: string): Observable<ReportEmployeeContracts> {
+    let params = new HttpParams();
+    
+    if (startDate) params = params.set('startDate', startDate);
+    if (endDate) params = params.set('endDate', endDate);
+    
+    return this._http.get<ReportEmployeeContracts>(`${this.API_CONTRACT}/reports/employees/history/terminated/${areId}`,  { params })
+  }
+
 }

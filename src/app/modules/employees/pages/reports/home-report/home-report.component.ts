@@ -18,6 +18,7 @@ export class HomeReportComponent {
   }
 
   goReportsRetiredemployees(){
+    this.route.navigate([`employee-management/report/terminated-contract`]);
 
   }
 

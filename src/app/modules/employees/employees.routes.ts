@@ -54,6 +54,12 @@ const editorRoutes: Routes = [
       import('./pages/reports/history-contract/history-contract.component').then((m) => m.HistoryContractComponent),
   },
 
+  {
+    path: 'report/terminated-contract',
+    loadComponent: () =>
+      import('./pages/reports/report-terminated-contracts/report-terminated-contracts.component').then((m) => m.ReportTerminatedContractsComponent),
+  },
+
 ]
 
 export const EMPLOYEES_ROUTES: Routes = [
