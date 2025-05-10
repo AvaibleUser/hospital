@@ -3,4 +3,5 @@ export interface ModalState<Component> {
     loadComponent: () => Promise<new () => Component>,
     inputs?: Record<string, unknown>
   ) => Promise<void>;
+  closeModalCallback?: () => void;
 }

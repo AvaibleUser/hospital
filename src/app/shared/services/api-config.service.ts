@@ -33,5 +33,6 @@ export class ApiConfigService {
 
     //ward
     API_PATIENT = `${this.API_BASE_WARD}/patients`
-
+    API_ROOM = `${this.API_BASE_WARD}/rooms`
+    API_ASSIGNED_EMPLOYEE = `${this.API_BASE_WARD}/assigned-employees`
 }

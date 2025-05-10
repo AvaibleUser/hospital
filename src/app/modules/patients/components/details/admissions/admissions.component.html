@@ -3,7 +3,9 @@
     <div class="flex justify-between items-center mb-4">
       <h2 class="card-title text-secondary">Hospitalizaciones</h2>
       @if (!currentAdmission) {
-      <button class="btn btn-xs btn-primary">Nueva Admisión</button>
+      <button class="btn btn-xs btn-primary" (click)="createAdmission()">
+        Internar Paciente
+      </button>
       }
     </div>
 
@@ -31,7 +33,7 @@
             </p>
           </div>
 
-          <div class="text-sm w-full">
+          <div class="text-sm w-full overflow-y-auto">
             <h3 class="font-semibold text-lg text-accent mb-2">
               Personal Asignado
             </h3>
@@ -40,20 +42,37 @@
               <span class="opacity-70">{{ typeToString(employee.type) }}:</span>
               {{ employee.fullName }}
             </p>
+            } @empty {
+            <p class="text-center h-full flex items-center">
+              <span>No se encontraron empleados</span>
+            </p>
             }
           </div>
         </div>
-        @if (admission.status === 'ADMITTED') {
-        <button class="btn btn-xs btn-error block mt-2 ml-auto w-fit">
-          Dar de Alta
-        </button>
-        }
+
+        <div class="flex justify-end gap-2 mt-2">
+          <button
+            class="btn btn-xs btn-primary btn-soft w-fit"
+            (click)="appendEmployee()"
+          >
+            Asignar Empleado
+          </button>
+          <button
+            class="btn btn-xs btn-warning btn-outline w-fit"
+            (click)="editCurrentAdmission()"
+          >
+            Editar Ingreso
+          </button>
+        </div>
       </div>
     </div>
 
     <div class="divider"></div>
-    }
-
+    } @if (!admissions?.content?.length) {
+    <div class="text-center text-accent h-full flex items-center">
+      <p class="text-2xl">No se encontraron hospitalizaciones</p>
+    </div>
+    } @else {
     <div class="overflow-x-auto">
       <table class="table table-sm">
         <thead class="text-accent">
@@ -66,7 +85,7 @@
         </thead>
 
         <tbody>
-          @for (admission of admissions; track admission.id) {
+          @for (admission of admissions!.content; track admission.id) {
           <tr class="even:bg-base-200 hover:bg-accent-content">
             <td>
               {{ admission.admissionDate | date : "dd/MM/yyyy" }}
@@ -78,10 +97,10 @@
             <td>
               <span
                 class="badge badge-sm badge-soft"
-                [class.badge-info]="admission.status === 'ADMITTED'"
-                [class.badge-success]="admission.status === 'DISCHARGED'"
+                [class.badge-info]="isAdmitted(admission)"
+                [class.badge-success]="!isAdmitted(admission)"
               >
-                {{ admission.status === "ADMITTED" ? "Activo" : "Finalizado" }}
+                {{ isAdmitted(admission) ? "Activo" : "Finalizado" }}
               </span>
             </td>
           </tr>
@@ -89,5 +108,30 @@
         </tbody>
       </table>
     </div>
+
+    <div class="flex justify-center items-center gap-2 mt-auto">
+      <button
+        class="btn btn-xs btn-ghost"
+        [class.btn-disable]="admissions?.first"
+        [class.text-primary]="!admissions?.first"
+        (click)="!admissions?.first && fetchAdmissions(false, true)"
+      >
+        <i-lucide [img]="Previous" />
+      </button>
+
+      <span class="text-xs text-center">
+        {{ (admissions?.number || 0) + 1 }} de {{ admissions?.totalPages || 0 }}
+      </span>
+
+      <button
+        class="btn btn-xs btn-ghost"
+        [class.btn-disable]="admissions?.last"
+        [class.text-primary]="!admissions?.last"
+        (click)="!admissions?.last && fetchAdmissions(true, false)"
+      >
+        <i-lucide [img]="Next" />
+      </button>
+    </div>
+    }
   </div>
 </div>

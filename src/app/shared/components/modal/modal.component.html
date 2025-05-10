@@ -1,7 +1,10 @@
 <dialog #modal id="global_modal" class="modal modal-bottom sm:modal-middle">
   <div class="modal-box">
     <form method="dialog">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+      <button
+        #closeButton
+        class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+      >
         <i-lucide size="18" [img]="Close"></i-lucide>
       </button>
     </form>

@@ -5,6 +5,11 @@
       <button class="btn btn-xs btn-primary">Nueva Consulta</button>
     </div>
 
+    @if (!consultations?.length) {
+    <div class="text-center text-accent h-full flex items-center">
+      <p class="text-2xl">No se encontraron consultas</p>
+    </div>
+    } @else {
     <div class="overflow-x-auto">
       <table class="table table-sm">
         <thead class="text-accent">
@@ -26,5 +31,6 @@
         </tbody>
       </table>
     </div>
+    }
   </div>
 </div>

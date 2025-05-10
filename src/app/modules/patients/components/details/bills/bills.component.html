@@ -33,8 +33,11 @@
     </div>
 
     <div class="divider"></div>
-    }
-
+    } @if (!bills?.length) {
+    <div class="text-center text-accent h-full flex items-center">
+      <p class="text-2xl">No se encontraron facturas</p>
+    </div>
+    } @else {
     <div class="overflow-x-auto">
       <table class="table table-sm">
         <thead class="text-accent">
@@ -73,5 +76,6 @@
         </tbody>
       </table>
     </div>
+    }
   </div>
 </div>

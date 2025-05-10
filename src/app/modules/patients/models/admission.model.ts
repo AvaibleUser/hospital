@@ -8,7 +8,6 @@ export enum AdmissionStatus {
 export interface NewAdmission {
   admissionDate: string;
   dischargeDate?: string;
-  patientId: number;
   roomId: number;
 }
 

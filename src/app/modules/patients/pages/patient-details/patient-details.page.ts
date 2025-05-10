@@ -4,7 +4,6 @@ import { AdmissionsComponent } from '@patients/components/details/admissions/adm
 import { BillsComponent } from '@patients/components/details/bills/bills.component';
 import { ConsultsComponent } from '@patients/components/details/consults/consults.component';
 import { SurgeriesComponent } from '@patients/components/details/surgeries/surgeries.component';
-import { Admission } from '@patients/models/admission.model';
 import { Bill, BillItem } from '@patients/models/bill.model';
 import { Patient } from '@patients/models/patient.model';
 import { Surgery } from '@patients/models/surgery.model';
@@ -26,7 +25,6 @@ export class PatientDetailsPage implements OnInit {
 
   id: number = inject(ActivatedRoute).snapshot.params['id'];
   patient?: Patient;
-  admissions?: Admission[];
   surgeries?: Surgery[];
   bills?: Bill[];
   consultations?: BillItem[];
@@ -35,52 +33,6 @@ export class PatientDetailsPage implements OnInit {
     this.patientService.getPatientById(this.id).subscribe((patient) => {
       this.patient = patient;
     });
-    this.admissions = [
-      {
-        id: 1,
-        admissionDate: '2023-01-01',
-        dischargeDate: '2023-01-02',
-        status: 'ADMITTED',
-        assignedEmployees: [
-          {
-            id: 1,
-            fullName: 'El Doctor',
-            cui: '123456789',
-            phone: '123456789',
-            email: 'doctor@example.com',
-            type: 'DOCTOR',
-            createdAt: '2023-01-01T00:00:00.000Z',
-            updatedAt: '2023-01-01T00:00:00.000Z',
-          },
-          {
-            id: 2,
-            fullName: 'El Especialista',
-            cui: '987654321',
-            phone: '987654321',
-            email: 'specialist@example.com',
-            type: 'SPECIALIST',
-            createdAt: '2023-01-01T00:00:00.000Z',
-            updatedAt: '2023-01-01T00:00:00.000Z',
-          },
-        ],
-        roomId: 1,
-        roomNumber: '123',
-        roomCostPerDay: 100,
-        createdAt: '2023-01-01T00:00:00.000Z',
-        updatedAt: '2023-01-01T00:00:00.000Z',
-      },
-      {
-        id: 2,
-        admissionDate: '2023-01-03',
-        dischargeDate: '2023-01-04',
-        status: 'DISCHARGED',
-        roomId: 2,
-        roomNumber: '456',
-        roomCostPerDay: 200,
-        createdAt: '2023-01-03T00:00:00.000Z',
-        updatedAt: '2023-01-03T00:00:00.000Z',
-      },
-    ];
     this.surgeries = [
       {
         id: 1,
@@ -89,6 +41,7 @@ export class PatientDetailsPage implements OnInit {
         specialists: [
           {
             id: 1,
+            employeeId: 1,
             fullName: 'El Especialista',
             cui: '987654321',
             phone: '987654321',
@@ -111,6 +64,7 @@ export class PatientDetailsPage implements OnInit {
         specialists: [
           {
             id: 2,
+            employeeId: 2,
             fullName: 'El Especialista',
             cui: '987654321',
             phone: '987654321',

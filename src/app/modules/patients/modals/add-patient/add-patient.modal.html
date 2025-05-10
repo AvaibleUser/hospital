@@ -1,17 +1,20 @@
 <div class="text-center mb-2">
-  <h1 class="text-3xl font-bold text-primary">Editar revista</h1>
+  <h1 class="text-3xl font-bold text-primary">Crear Paciente</h1>
 </div>
 
 <form [formGroup]="addForm" class="space-y-4">
   <fieldset class="fieldset">
     <legend class="fieldset-legend">
       <span>Nombre completo</span>
+      <span class="text-xs text-error">*</span>
     </legend>
     <input
       type="text"
       formControlName="fullName"
       name="fullName"
       class="input input-bordered w-full"
+      required="true"
+      minlength="2"
       [class.input-error]="addForm.get('fullName')?.touched && addForm.get('fullName')?.invalid"
       [class.input-success]="addForm.get('fullName')?.touched && addForm.get('fullName')?.valid"
     />
@@ -20,12 +23,15 @@
   <fieldset class="fieldset">
     <legend class="fieldset-legend">
       <span>CUI</span>
+      <span class="text-xs text-error">*</span>
     </legend>
     <input
       type="text"
       formControlName="cui"
       name="cui"
       class="input input-bordered w-full"
+      required="true"
+      minlength="2"
       [class.input-error]="addForm.get('cui')?.touched && addForm.get('cui')?.invalid"
       [class.input-success]="addForm.get('cui')?.touched && addForm.get('cui')?.valid"
     />
@@ -54,6 +60,7 @@
       formControlName="phone"
       name="phone"
       class="input input-bordered w-full"
+      minlength="2"
       [class.input-error]="addForm.get('phone')?.touched && addForm.get('phone')?.invalid"
       [class.input-success]="addForm.get('phone')?.touched && addForm.get('phone')?.valid"
     />
@@ -68,6 +75,8 @@
       formControlName="email"
       name="email"
       class="input input-bordered w-full"
+      minlength="2"
+      email="true"
       [class.input-error]="addForm.get('email')?.touched && addForm.get('email')?.invalid"
       [class.input-success]="addForm.get('email')?.touched && addForm.get('email')?.valid"
     />

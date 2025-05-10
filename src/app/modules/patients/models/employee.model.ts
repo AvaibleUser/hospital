@@ -6,6 +6,7 @@ export enum EmployeeType {
 
 export interface AssignedEmployee {
   id: number;
+  employeeId: number;
   fullName: string;
   cui: string;
   phone?: string;

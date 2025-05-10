@@ -9,11 +9,10 @@ import {
 import { NewPatient } from '@patients/models/patient.model';
 import { PatientService } from '@patients/services/patient.service';
 import { AlertStore } from 'app/store/alert.store';
-import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'patient-add-patient',
-  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './add-patient.modal.html',
   styleUrl: './add-patient.modal.css',
 })

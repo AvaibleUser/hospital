@@ -6,10 +6,8 @@ import { AlertStore } from 'app/store/alert.store';
   selector: 'app-alerts',
   imports: [CommonModule],
   templateUrl: './alerts.component.html',
-  styleUrl: './alerts.component.css'
+  styleUrl: './alerts.component.css',
 })
 export class AlertsComponent {
-
   readonly alertStore = inject(AlertStore);
-
 }

@@ -3,6 +3,7 @@ import { ModalState } from './models/modal-store.model';
 
 const initialState: ModalState<unknown> = {
   openModalCallback: undefined,
+  closeModalCallback: undefined,
 };
 
 export const ModalStore = signalStore(
@@ -13,11 +14,13 @@ export const ModalStore = signalStore(
       openModalCallback?: (
         loadComponent: () => Promise<new () => unknown>,
         inputs?: Record<string, unknown>
-      ) => Promise<void>
+      ) => Promise<void>,
+      closeModalCallback?: () => void
     ) {
       patchState(store, (state: ModalState<unknown>) => ({
         ...state,
         openModalCallback,
+        closeModalCallback,
       }));
     },
     openModal<Component>(
@@ -25,6 +28,9 @@ export const ModalStore = signalStore(
       inputs?: Record<string, unknown>
     ) {
       store.openModalCallback?.()?.(loadComponent, inputs);
+    },
+    closeModal() {
+      store.closeModalCallback?.()?.();
     },
   }))
 );

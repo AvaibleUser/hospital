@@ -16,12 +16,5 @@
       "preLaunchTask": "npm: test",
       "url": "http://localhost:9876/debug.html"
     },
-    {
-      "name": "Brave",
-      "type": "chrome",
-      "request": "launch",
-      "runtimeExecutable": "/usr/bin/brave",
-      "url": "http://localhost:4200/"
-    },
   ]
 }

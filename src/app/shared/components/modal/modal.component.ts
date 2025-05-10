@@ -8,8 +8,8 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { LucideAngularModule, X } from 'lucide-angular';
 import { ModalStore } from 'app/store/modal.store';
+import { LucideAngularModule, X } from 'lucide-angular';
 
 @Component({
   selector: 'app-modal',
@@ -23,6 +23,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   readonly Close = X;
 
   @ViewChild('modal') modalRef!: ElementRef;
+  @ViewChild('closeButton') closeButtonRef!: ElementRef;
 
   content?: { new (): unknown };
   inputs?: Record<string, unknown>;
@@ -32,14 +33,19 @@ export class ModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.modalStore.setModalCallback(async (loadComponent, inputs) => {
-      this.inputs = inputs;
-      this.content = await loadComponent();
-      this.modalRef.nativeElement.showModal();
-    });
+    this.modalStore.setModalCallback(
+      async (loadComponent, inputs) => {
+        this.inputs = inputs;
+        this.content = await loadComponent();
+        this.modalRef.nativeElement.showModal();
+      },
+      () => {
+        this.closeButtonRef.nativeElement.click();
+      }
+    );
   }
 
   ngOnDestroy() {
-    this.modalStore.setModalCallback(undefined);
+    this.modalStore.setModalCallback(undefined, undefined);
   }
 }

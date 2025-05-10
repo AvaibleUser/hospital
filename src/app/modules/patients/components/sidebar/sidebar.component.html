@@ -16,7 +16,7 @@
   <ul
     class="bg-base-100 px-0 flex flex-col items-stretch space-y-2 h-full pt-2 transition-all duration-300 ease-in-out border-t-1 border-r-1 rounded-tr-md"
   >
-    @for (item of items; track item) {
+    @for (item of items; track item.name) {
     <li
       [ngClass]="{ 'tooltip tooltip-right': isCollapsed }"
       [attr.data-tip]="item.name"
