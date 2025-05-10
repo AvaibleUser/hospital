@@ -3,6 +3,11 @@ import { PharmacyLayoutComponent } from './modules/pharmacy/layouts/pharmacy-lay
 
 export const routes: Routes = [
     {
+        path: "pharmacy",
+        component: PharmacyLayoutComponent,
+        loadChildren: () => import('./modules/pharmacy/pharmacy.routes').then(m => m.routes)
+    },
+    {
         path: '',
         redirectTo: 'session',
         pathMatch: 'full'
@@ -15,41 +20,4 @@ export const routes: Routes = [
         path: 'employee-management',
         loadChildren: () => import('./modules/employees/employees.routes').then(m => m.EMPLOYEES_ROUTES),
     },
-];
-export const routes: Routes = [
-    {
-        path: "pharmacy",
-        component: PharmacyLayoutComponent,
-        children: [
-            {
-                path: "dashboard",
-                loadComponent: () => import('./modules/pharmacy/pages/dashboard/dashboard.component')
-            },
-            {
-                path: "inventory",
-                loadComponent: () => import('./modules/pharmacy/pages/inventory/inventory.component')
-            },
-            {
-                path: "sales",
-                loadComponent: () => import('./modules/pharmacy/pages/sales/sales.component')
-            },
-            {
-                path: "inventory-check",
-                loadComponent: () => import('./modules/pharmacy/pages/inventory-check/inventory-check.component')
-            },
-            {
-                path: "reports",
-                loadComponent: () => import('./modules/pharmacy/pages/reports/reports.component')
-            },
-            {
-                path: "settings",
-                loadComponent: () => import('./modules/pharmacy/pages/settings/settings.component')
-            },
-            {
-                path: "",
-                redirectTo: "dashboard",
-                pathMatch: "full"
-            }
-        ]
-    }
 ];
