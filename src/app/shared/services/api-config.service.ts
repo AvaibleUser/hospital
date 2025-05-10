@@ -19,4 +19,9 @@ export class ApiConfigService {
     API_VACATION = `${this.API_BASE_EMPLOYEE}/vacations`
     API_PAYMENT = `${this.API_BASE_EMPLOYEE}/payments`
 
+    //users
+    API_USER= `${this.API_BASE_AUTH}/user`;
+    API_ROL = `${this.API_BASE_AUTH}/roles`
+
+
 }
