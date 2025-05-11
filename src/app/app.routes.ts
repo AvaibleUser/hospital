@@ -1,6 +1,12 @@
 import { Routes } from '@angular/router';
+import { PharmacyLayoutComponent } from './modules/pharmacy/layouts/pharmacy-layout/pharmacy-layout.component';
 
 export const routes: Routes = [
+    {
+        path: "pharmacy",
+        component: PharmacyLayoutComponent,
+        loadChildren: () => import('./modules/pharmacy/pharmacy.routes').then(m => m.routes)
+    },
     {
         path: '',
         redirectTo: 'session',
