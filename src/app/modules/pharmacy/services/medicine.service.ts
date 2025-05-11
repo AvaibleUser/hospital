@@ -7,6 +7,7 @@ import { ApiConfigService } from '@shared/services/api-config.service';
 import { CreatePurchacheDto } from '../models/purches.dto';
 import { PatientDto } from '../models/patient.dto';
 import { CreateSaleDto, ItemsSaleMedicineDto, ReportSaleMedicineDto, ReportSalesPerEmployeeDto } from '../models/sales.dto';
+import { ReportSalesTotal } from 'app/modules/admin/models/pharmacy.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -46,27 +47,37 @@ export class MedicineService {
     return this.http.get<PatientDto[]>(`${this.API_PATIENT}/all`);
   }
 
-  createSale(sale:CreateSaleDto): Observable<void> {
+  createSale(sale: CreateSaleDto): Observable<void> {
     return this.http.post<void>(`${this.API_SALES}`, sale);
   }
 
 
   getReportSalesMedicinePerMedicineInRange(startDate?: string, endDate?: string): Observable<ReportSaleMedicineDto[]> {
     let params = new HttpParams();
-    
+
     if (startDate) params = params.set('startDate', startDate);
     if (endDate) params = params.set('endDate', endDate);
-    
-    return this.http.get<ReportSaleMedicineDto[]>(`${this.API_SALES}/report/medicine`,  { params })
+
+    return this.http.get<ReportSaleMedicineDto[]>(`${this.API_SALES}/report/medicine`, { params })
   }
 
   getReportSalesMedicineEmployeeInRange(startDate?: string, endDate?: string): Observable<ReportSalesPerEmployeeDto[]> {
     let params = new HttpParams();
-    
+
     if (startDate) params = params.set('startDate', startDate);
     if (endDate) params = params.set('endDate', endDate);
-    
-    return this.http.get<ReportSalesPerEmployeeDto[]>(`${this.API_SALES}/report/employees`,  { params })
+
+    return this.http.get<ReportSalesPerEmployeeDto[]>(`${this.API_SALES}/report/employees`, { params })
+  }
+
+
+  getReportSalesTotalInRange(startDate?: string, endDate?: string): Observable<ReportSalesTotal> {
+    let params = new HttpParams();
+
+    if (startDate) params = params.set('startDate', startDate);
+    if (endDate) params = params.set('endDate', endDate);
+
+    return this.http.get<ReportSalesTotal>(`${this.API_SALES}/report/income`, { params })
   }
 
 }
