@@ -143,10 +143,10 @@
         <input type="text" [(ngModel)]="employeeSearchTerm" placeholder="Buscar empleado..."
           class="input input-bordered w-full max-w-xs" />
         <div class="flex gap-2">
-          <input type="date" [(ngModel)]="employeeStartDate" class="input input-bordered" />
-          <input type="date" [(ngModel)]="employeeEndDate" class="input input-bordered" />
+          <input type="date" [(ngModel)]="startDate" class="input input-bordered" />
+          <input type="date" [(ngModel)]="endDate" class="input input-bordered" />
         </div>
-        <button class="btn btn-primary">Buscar</button>
+        <button class="btn btn-primary" (click)="getReportEmployees()">Generar Reporte</button>
       </div>
 
       <div class="overflow-x-auto">
@@ -162,13 +162,14 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let employee of filteredEmployeeSales">
+            @for (employee of filteredEmployeeSales; track $index) {
+            <ng-container>
               <tr>
-                <td>{{ employee.name }}</td>
+                <td>{{ employee.employeeName }}</td>
                 <td>{{ employee.cui }}</td>
-                <td>{{ employee.totalSales }}</td>
-                <td>{{ employee.revenue | currency:'Q' }}</td>
-                <td>{{ employee.profit | currency:'Q' }}</td>
+                <td>{{ employee.totalSold }}</td>
+                <td>{{ employee.totalIncome | currency:'Q' }}</td>
+                <td>{{ employee.totalProfit | currency:'Q' }}</td>
                 <td>
                   <button class="btn btn-xs btn-outline" (click)="employee.showDetails = !employee.showDetails">
                     {{ employee.showDetails ? 'Ocultar' : 'Mostrar' }} Detalles
@@ -190,20 +191,25 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let detail of employee.details">
-                          <td>{{ detail.date }}</td>
-                          <td>{{ detail.medicament }}</td>
-                          <td>{{ detail.quantity }}</td>
-                          <td>{{ detail.unitPrice | currency:'Q' }}</td>
-                          <td>{{ detail.subtotal | currency:'Q' }}</td>
-                          <td>{{ detail.profit | currency:'Q' }}</td>
+                        @for (item of employee.items; track $index) {
+                        <tr>
+                          <td>{{ item.soldAt }}</td>
+                          <td>{{ item.name }}</td>
+                          <td>{{ item.quantity }}</td>
+                          <td>{{ item.unitPrice | currency:'Q' }}</td>
+                          <td>{{ item.Subtotal| currency:'Q' }}</td>
+                          <td>{{ item.Profit | currency:'Q' }}</td>
                         </tr>
+                        }
+
                       </tbody>
                     </table>
                   </div>
                 </td>
               </tr>
             </ng-container>
+            }
+
           </tbody>
         </table>
       </div>

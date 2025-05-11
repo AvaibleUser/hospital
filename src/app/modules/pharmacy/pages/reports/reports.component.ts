@@ -3,47 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Medicine } from '../../models/inveontry';
 import { MedicineService } from '../../services/medicine.service';
-import { ReportSaleMedicineDto } from '../../models/sales.dto';
-
-
-
-interface ProfitDetail {
-  date: string;
-  quantity: number;
-  unitPrice: number;
-  subtotal: number;
-  costs: number;
-  profit: number;
-}
-
-interface Profit {
-  code: string;
-  medicaments: string;
-  totalSold: number;
-  revenue: number;
-  profit: number;
-  showDetails: boolean;
-  details: ProfitDetail[];
-}
-
-interface EmployeeSaleDetail {
-  date: string;
-  medicament: string;
-  quantity: number;
-  unitPrice: number;
-  subtotal: number;
-  profit: number;
-}
-
-interface EmployeeSale {
-  name: string;
-  cui: string;
-  totalSales: number;
-  revenue: number;
-  profit: number;
-  showDetails: boolean;
-  details: EmployeeSaleDetail[];
-}
+import { ReportSaleMedicineDto, ReportSalesPerEmployeeDto } from '../../models/sales.dto';
 
 
 @Component({
@@ -63,39 +23,11 @@ export default class ReportsComponent {
   employeeSearchTerm: string = '';
   startDate: string = '';
   endDate: string = '';
-  employeeStartDate: string = '';
-  employeeEndDate: string = '';
+
 
   medicaments: Medicine[] = [];
-
-  profits: ReportSaleMedicineDto[] = []
-
-  employeeSales: EmployeeSale[] = [
-    {
-      name: 'Juan Pérez',
-      cui: '1234567890123',
-      totalSales: 25,
-      revenue: 125,
-      profit: 75,
-      showDetails: false,
-      details: [
-        { date: '2025-05-01', medicament: 'Paracetamol', quantity: 15, unitPrice: 2.5, subtotal: 37.5, profit: 22.5 },
-        { date: '2025-05-02', medicament: 'Ibuprofeno', quantity: 10, unitPrice: 3.0, subtotal: 30, profit: 18 },
-      ]
-    },
-    {
-      name: 'María López',
-      cui: '9876543210987',
-      totalSales: 20,
-      revenue: 100,
-      profit: 60,
-      showDetails: false,
-      details: [
-        { date: '2025-05-03', medicament: 'Amoxicilina', quantity: 20, unitPrice: 5.0, subtotal: 100, profit: 60 },
-      ]
-    },
-  ];
-
+  profits: ReportSaleMedicineDto[] = [];
+  employeeSales: ReportSalesPerEmployeeDto[] = [];
 
 
   ngOnInit(): void {
@@ -121,19 +53,11 @@ export default class ReportsComponent {
     return filtered;
   }
 
-  get filteredEmployeeSales(): EmployeeSale[] {
+  get filteredEmployeeSales(): ReportSalesPerEmployeeDto[] {
     let filtered = this.employeeSales.filter(employee =>
-      employee.name.toLowerCase().includes(this.employeeSearchTerm.toLowerCase()) ||
+      employee.employeeName.toLowerCase().includes(this.employeeSearchTerm.toLowerCase()) ||
       employee.cui.toLowerCase().includes(this.employeeSearchTerm.toLowerCase())
     );
-
-    if (this.employeeStartDate && this.employeeEndDate) {
-      filtered = filtered.filter(employee =>
-        employee.details.some(detail =>
-          detail.date >= this.employeeStartDate && detail.date <= this.employeeEndDate
-        )
-      );
-    }
 
     return filtered;
   }
@@ -147,7 +71,7 @@ export default class ReportsComponent {
   }
 
   calculateEmployeeSalesTotal(): number {
-    return this.filteredEmployeeSales.reduce((total, employee) => total + employee.revenue, 0);
+    return this.filteredEmployeeSales.reduce((total, employee) => total + employee.totalProfit, 0);
   }
 
   gerReportSaleMedicine() {
@@ -167,5 +91,23 @@ export default class ReportsComponent {
       }
     })
 
+  }
+
+  getReportEmployees() {
+    if (this.startDate === '' || this.endDate === '') {
+      this.medicineService.getReportSalesMedicineEmployeeInRange().subscribe({
+        next: value => {
+          this.employeeSales = value;
+        }
+      })
+
+      return
+    }
+
+    this.medicineService.getReportSalesMedicineEmployeeInRange(this.startDate, this.endDate).subscribe({
+      next: value => {
+        this.employeeSales = value;
+      }
+    })
   }
 }
