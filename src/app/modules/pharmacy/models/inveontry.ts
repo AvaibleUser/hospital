@@ -7,4 +7,5 @@ export interface Medicine {
     minStock: number;
     createdAt: string;
     updatedAt: string;
+    quantity?: number;
 }

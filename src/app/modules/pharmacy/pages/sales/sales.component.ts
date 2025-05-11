@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MedicineService } from '../../services/medicine.service';
+import { Medicine } from '../../models/inveontry';
 
 @Component({
   selector: 'app-sales',
@@ -8,48 +10,45 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './sales.component.html',
 })
 export default class SalesComponent {
+  medicineService = inject(MedicineService);
   patientName: string = '';
   patientType: string = 'Ambulatorio';
-  
-  products = [
-    { id: 1, name: 'Paracetamol', price: 2.5, stock: 100 },
-    { id: 2, name: 'Ibuprofeno', price: 3.0, stock: 20 },
-    { id: 3, name: 'Amoxicilina', price: 5.0, stock: 80 },
+
+  products: Medicine[] = [
   ];
 
-  saleItems: { id: number, name: string, price: number, quantity: number }[] = [];
+  ngOnInit(): void {
+    this.loadInventory();
+  }
+  
+  saleItems: Medicine[] = [];
 
-  addToSale(product: { id: number, name: string, price: number, stock: number }) {
+  addToSale(product: Medicine) {
     const existingItem = this.saleItems.find(item => item.id === product.id);
     if (existingItem) {
-      if (existingItem.quantity < product.stock) {
-        existingItem.quantity++;
+      if (existingItem.quantity! < product.stock) {
+        existingItem.quantity!++;
       }
     } else {
-      this.saleItems.push({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        quantity: 1
-      });
+      this.saleItems.push(product);
     }
   }
 
-  increaseQuantity(item: { id: number, quantity: number }) {
+  increaseQuantity(item: Medicine) {
     const product = this.products.find(p => p.id === item.id);
-    if (product && item.quantity < product.stock) {
-      item.quantity++;
+    if (product && item.quantity! < product.stock) {
+      item.quantity!++;
     }
   }
 
-  decreaseQuantity(item: { id: number, quantity: number }) {
-    item.quantity--;
-    if (item.quantity === 0) {
+  decreaseQuantity(item: Medicine) {
+    item.quantity!--;
+    if (item.quantity! === 0) {
       this.removeItem(item);
     }
   }
 
-  removeItem(item: { id: number }) {
+  removeItem(item: Medicine) {
     this.saleItems = this.saleItems.filter(i => i.id !== item.id);
   }
 
@@ -59,7 +58,7 @@ export default class SalesComponent {
   }
 
   calculateTotal(): number {
-    return this.saleItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return this.saleItems.reduce((total, item) => total + (item.unitPrice * item.quantity!), 0);
   }
 
   registerSale() {
@@ -74,5 +73,23 @@ export default class SalesComponent {
     this.saleItems = [];
     this.patientName = '';
     this.patientType = 'Ambulatorio';
+  }
+
+  searchTerm: string = '';
+
+  loadInventory(): void {
+    this.medicineService.getAll(this.searchTerm).subscribe(data => {
+      this.products = data;
+    });
+  }
+
+  get filteredInventory(): Medicine[] {
+    return this.products.filter(item =>
+      item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  onSearch(): void {
+    this.loadInventory();
   }
 }
