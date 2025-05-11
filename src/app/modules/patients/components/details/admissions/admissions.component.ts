@@ -46,8 +46,7 @@ export class AdmissionsComponent implements OnInit {
 
   isAdmitted(admission: Admission) {
     return (
-      admission.dischargeDate === undefined ||
-      new Date(admission.dischargeDate) > new Date()
+      !admission.dischargeDate || new Date(admission.dischargeDate) > new Date()
     );
   }
 
@@ -83,7 +82,7 @@ export class AdmissionsComponent implements OnInit {
     this.modalStore.openModal(
       () =>
         import(
-          '@patients/modals/details/add-admission/add-admission.modal'
+          '@patients/modals/admissions/add-admission/add-admission.modal'
         ).then((m) => m.AddAdmissionModal),
       {
         patientId: this.patientId,
@@ -96,7 +95,7 @@ export class AdmissionsComponent implements OnInit {
     this.modalStore.openModal(
       () =>
         import(
-          '@patients/modals/details/append-employee/append-employee.modal'
+          '@patients/modals/admissions/append-employee/append-employee.modal'
         ).then((m) => m.AppendEmployeeModal),
       {
         patientId: this.patientId,
@@ -110,7 +109,7 @@ export class AdmissionsComponent implements OnInit {
     this.modalStore.openModal(
       () =>
         import(
-          '@patients/modals/details/edit-admission/edit-admission.modal'
+          '@patients/modals/admissions/edit-admission/edit-admission.modal'
         ).then((m) => m.EditAdmissionModal),
       {
         patientId: this.patientId,

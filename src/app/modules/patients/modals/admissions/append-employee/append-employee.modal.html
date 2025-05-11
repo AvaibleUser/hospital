@@ -25,9 +25,9 @@
             {{ getEmployee(employee.value)?.fullName || 'N/A' }}
           </option>
           } @else {
-          <option disabled selected value="0">Seleccionar empleado</option>
+          <option disabled value="0">Seleccionar empleado</option>
           } @for (employee of getEmployees(); track employee.employeeId) {
-          <option [ngValue]="employee.employeeId">
+          <option [ngValue]="employee.employeeId" [value]="employee.employeeId">
             {{ employee.fullName }}
           </option>
           }

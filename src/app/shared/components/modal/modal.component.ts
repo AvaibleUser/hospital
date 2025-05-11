@@ -35,8 +35,8 @@ export class ModalComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.modalStore.setModalCallback(
       async (loadComponent, inputs) => {
-        this.inputs = inputs;
         this.content = await loadComponent();
+        this.inputs = inputs;
         this.modalRef.nativeElement.showModal();
       },
       () => {
