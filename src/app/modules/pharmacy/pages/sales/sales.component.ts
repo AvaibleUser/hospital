@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Medicine } from '../../models/inveontry';
+import { MedicineService } from '../../services/medicine.service';
+import { PatientDto } from '../../models/patient.dto';
+import { CreateSaleDto, ItemSaleDto } from '../../models/sales.dto';
+import { AlertStore } from 'app/store/alert.store';
+import { AuthStore } from 'app/store/auth.store';
 
 @Component({
   selector: 'app-sales',
@@ -8,18 +14,41 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './sales.component.html',
 })
 export default class SalesComponent {
+
+  private readonly medicineService = inject(MedicineService);
+  private readonly alertStore = inject(AlertStore);
+  readonly authStore = inject(AuthStore);
+
   patientName: string = '';
   patientType: string = 'Ambulatorio';
-  
-  products = [
-    { id: 1, name: 'Paracetamol', price: 2.5, stock: 100 },
-    { id: 2, name: 'Ibuprofeno', price: 3.0, stock: 20 },
-    { id: 3, name: 'Amoxicilina', price: 5.0, stock: 80 },
-  ];
+  patienteId: number = 0;
+
+  products: Medicine[] = []
+  patientes: PatientDto[] = []
 
   saleItems: { id: number, name: string, price: number, quantity: number }[] = [];
 
-  addToSale(product: { id: number, name: string, price: number, stock: number }) {
+  ngOnInit(): void {
+    this.loadInventory();
+    this.loadPatientes();
+  }
+
+  loadInventory(): void {
+    this.medicineService.getAll().subscribe(data => {
+      this.products = data;
+    });
+  }
+
+  loadPatientes() {
+    this.medicineService.getAllPatientes().subscribe({
+      next: value => {
+        this.patientes = value
+      }
+    })
+  }
+
+
+  addToSale(product: Medicine) {
     const existingItem = this.saleItems.find(item => item.id === product.id);
     if (existingItem) {
       if (existingItem.quantity < product.stock) {
@@ -29,7 +58,7 @@ export default class SalesComponent {
       this.saleItems.push({
         id: product.id,
         name: product.name,
-        price: product.price,
+        price: product.unitPrice,
         quantity: 1
       });
     }
@@ -64,15 +93,43 @@ export default class SalesComponent {
 
   registerSale() {
     // Implement sale registration logic here
-    console.log('Sale registered:', {
-      patientName: this.patientName,
-      patientType: this.patientType,
-      items: this.saleItems,
-      total: this.calculateTotal()
-    });
-    // Reset form
-    this.saleItems = [];
-    this.patientName = '';
-    this.patientType = 'Ambulatorio';
+
+    const items: ItemSaleDto[] = []
+
+    this.saleItems.forEach(pro => {
+      items.push({
+        medicineId: pro.id,
+        quantity: pro.quantity
+      })
+    })
+
+    //const cui:string = `${this.authStore.session().cui}`;
+
+    const sale: CreateSaleDto = { items, patientId: Number(this.patienteId) }
+
+    this.medicineService.createSale(sale).subscribe({
+      next: value => {
+        this.alertStore.addAlert({
+          message: `Venta creada con exito`,
+          type: 'success',
+        });
+        this.saleItems = [];
+        this.patientName = '';
+        this.patienteId = 0;
+        this.loadInventory();
+      },
+      error: err => {
+        this.alertStore.addAlert({
+          message: `Error al crear la venta ${err.error.message}`,
+          type: 'error',
+        });
+        this.saleItems = [];
+        this.patientName = '';
+        this.patienteId = 0;
+        this.loadInventory();
+
+      }
+    })
+
   }
 }

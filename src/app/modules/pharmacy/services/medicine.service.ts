@@ -5,16 +5,20 @@ import { Observable } from 'rxjs';
 import { Medicine } from '../models/inveontry';
 import { ApiConfigService } from '@shared/services/api-config.service';
 import { CreatePurchacheDto } from '../models/purches.dto';
+import { PatientDto } from '../models/patient.dto';
+import { CreateSaleDto } from '../models/sales.dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MedicineService {
   private readonly apiConfig = inject(ApiConfigService);
-  private baseUrl = this.apiConfig.API_MEDICINE; 
+  private baseUrl = this.apiConfig.API_MEDICINE;
   private readonly API_PURCHES = this.apiConfig.API_PURCHES;
+  private readonly API_PATIENT = this.apiConfig.API_PATIENT;
+  private readonly API_SALES = this.apiConfig.API_SALES
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAll(name?: string): Observable<Medicine[]> {
     let params = new HttpParams();
@@ -34,7 +38,16 @@ export class MedicineService {
     return this.http.put<Medicine>(`${this.baseUrl}/${id}`, medicine);
   }
 
-  createPurches(purhc:CreatePurchacheDto, medicineId:number): Observable<void> {
+  createPurches(purhc: CreatePurchacheDto, medicineId: number): Observable<void> {
     return this.http.post<void>(`${this.API_PURCHES}/${medicineId}`, purhc);
   }
+
+  getAllPatientes(): Observable<PatientDto[]> {
+    return this.http.get<PatientDto[]>(`${this.API_PATIENT}/all`);
+  }
+
+  createSale(sale:CreateSaleDto): Observable<void> {
+    return this.http.post<void>(`${this.API_SALES}`, sale);
+  }
+
 }

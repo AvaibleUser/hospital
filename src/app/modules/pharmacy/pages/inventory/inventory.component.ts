@@ -21,6 +21,7 @@ export default class InventoryComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly alertStore = inject(AlertStore);
   private readonly medicineService = inject(MedicineService);
+  
   searchTerm: string = '';
   inventory: Medicine[] = [];
   Plus = Plus;

@@ -27,7 +27,6 @@ export class SidenavComponent {
     { label: 'Dashboard', icon: Home, link: '/pharmacy/dashboard' },
     { label: 'Inventario', icon: Package, link: '/pharmacy/inventory' },
     { label: 'Ventas', icon: ShoppingCart, link: '/pharmacy/sales' },
-    { label: 'Cierre de inventario', icon: CheckSquare, link: '/pharmacy/inventory-check' },
     { label: 'Reportes', icon: ChartPie, link: '/pharmacy/reports' },
     { label: 'Configuraciones', icon: Settings, link: '/pharmacy/settings' },
   ];
