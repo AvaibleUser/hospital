@@ -1,15 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Medicine } from '../../models/inveontry';
+import { MedicineService } from '../../services/medicine.service';
+import { ReportSaleMedicineDto } from '../../models/sales.dto';
 
 
-interface Medicament {
-  code: string;
-  name: string;
-  quantity: number;
-  minimum: number;
-  unitPrice: number;
-}
 
 interface ProfitDetail {
   date: string;
@@ -56,67 +52,43 @@ interface EmployeeSale {
   templateUrl: './reports.component.html',
 })
 export default class ReportsComponent {
+
+  private readonly medicineService = inject(MedicineService);
+
+
   activeTab: string = 'medicamentos';
-  
+
   medSearchTerm: string = '';
   profitSearchTerm: string = '';
   employeeSearchTerm: string = '';
-  profitStartDate: string = '';
-  profitEndDate: string = '';
+  startDate: string = '';
+  endDate: string = '';
   employeeStartDate: string = '';
   employeeEndDate: string = '';
 
-  medicaments: Medicament[] = [
-    { code: 'MED001', name: 'Paracetamol', quantity: 100, minimum: 50, unitPrice: 2.5 },
-    { code: 'MED002', name: 'Ibuprofeno', quantity: 20, minimum: 5, unitPrice: 3.0 },
-    { code: 'MED003', name: 'Amoxicilina', quantity: 80, minimum: 40, unitPrice: 5.0 },
-  ];
+  medicaments: Medicine[] = [];
 
-  profits: Profit[] = [
-    { 
-      code: 'SALE001', 
-      medicaments: 'Paracetamol, Ibuprofeno', 
-      totalSold: 30, 
-      revenue: 90, 
-      profit: 60, 
-      showDetails: false,
-      details: [
-        { date: '2025-05-01', quantity: 20, unitPrice: 2.5, subtotal: 50, costs: 20, profit: 30 },
-        { date: '2025-05-02', quantity: 10, unitPrice: 3.0, subtotal: 30, costs: 10, profit: 20 },
-      ]
-    },
-    { 
-      code: 'SALE002', 
-      medicaments: 'Amoxicilina', 
-      totalSold: 15, 
-      revenue: 75, 
-      profit: 45, 
-      showDetails: false,
-      details: [
-        { date: '2025-05-03', quantity: 15, unitPrice: 5.0, subtotal: 75, costs: 30, profit: 45 },
-      ]
-    },
-  ];
+  profits: ReportSaleMedicineDto[] = []
 
   employeeSales: EmployeeSale[] = [
-    { 
-      name: 'Juan Pérez', 
-      cui: '1234567890123', 
-      totalSales: 25, 
-      revenue: 125, 
-      profit: 75, 
+    {
+      name: 'Juan Pérez',
+      cui: '1234567890123',
+      totalSales: 25,
+      revenue: 125,
+      profit: 75,
       showDetails: false,
       details: [
         { date: '2025-05-01', medicament: 'Paracetamol', quantity: 15, unitPrice: 2.5, subtotal: 37.5, profit: 22.5 },
         { date: '2025-05-02', medicament: 'Ibuprofeno', quantity: 10, unitPrice: 3.0, subtotal: 30, profit: 18 },
       ]
     },
-    { 
-      name: 'María López', 
-      cui: '9876543210987', 
-      totalSales: 20, 
-      revenue: 100, 
-      profit: 60, 
+    {
+      name: 'María López',
+      cui: '9876543210987',
+      totalSales: 20,
+      revenue: 100,
+      profit: 60,
       showDetails: false,
       details: [
         { date: '2025-05-03', medicament: 'Amoxicilina', quantity: 20, unitPrice: 5.0, subtotal: 100, profit: 60 },
@@ -124,27 +96,28 @@ export default class ReportsComponent {
     },
   ];
 
-  get filteredMedicaments(): Medicament[] {
-    return this.medicaments.filter(item =>
-      item.name.toLowerCase().includes(this.medSearchTerm.toLowerCase()) ||
-      item.code.toLowerCase().includes(this.medSearchTerm.toLowerCase())
-    );
+
+
+  ngOnInit(): void {
+    this.loadInventory();
   }
 
-  get filteredProfits(): Profit[] {
+  loadInventory(): void {
+    this.medicineService.getAll().subscribe(data => {
+      this.medicaments = data;
+    });
+  }
+
+
+  get filteredMedicaments(): Medicine[] {
+    return this.medicaments.filter(item =>
+      item.name.toLowerCase().includes(this.medSearchTerm.toLowerCase()));
+  }
+
+  get filteredProfits(): ReportSaleMedicineDto[] {
     let filtered = this.profits.filter(sale =>
-      sale.medicaments.toLowerCase().includes(this.profitSearchTerm.toLowerCase()) ||
-      sale.code.toLowerCase().includes(this.profitSearchTerm.toLowerCase())
+      sale.name.toLowerCase().includes(this.profitSearchTerm.toLowerCase())
     );
-
-    if (this.profitStartDate && this.profitEndDate) {
-      filtered = filtered.filter(sale =>
-        sale.details.some(detail =>
-          detail.date >= this.profitStartDate && detail.date <= this.profitEndDate
-        )
-      );
-    }
-
     return filtered;
   }
 
@@ -166,14 +139,33 @@ export default class ReportsComponent {
   }
 
   calculateInventoryTotal(): number {
-    return this.filteredMedicaments.reduce((total, item) => total + (item.quantity * item.unitPrice), 0);
+    return this.filteredMedicaments.reduce((total, item) => total + (item.stock * item.unitPrice), 0);
   }
 
   calculateProfitTotal(): number {
-    return this.filteredProfits.reduce((total, sale) => total + sale.revenue, 0);
+    return this.filteredProfits.reduce((total, sale) => total + sale.totalProfit, 0);
   }
 
   calculateEmployeeSalesTotal(): number {
     return this.filteredEmployeeSales.reduce((total, employee) => total + employee.revenue, 0);
+  }
+
+  gerReportSaleMedicine() {
+    if (this.startDate === '' || this.endDate === '') {
+      this.medicineService.getReportSalesMedicinePerMedicineInRange().subscribe({
+        next: value => {
+          this.profits = value;
+        }
+      })
+
+      return
+    }
+
+    this.medicineService.getReportSalesMedicinePerMedicineInRange(this.startDate, this.endDate).subscribe({
+      next: value => {
+        this.profits = value;
+      }
+    })
+
   }
 }

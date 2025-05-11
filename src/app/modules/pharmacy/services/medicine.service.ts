@@ -6,7 +6,7 @@ import { Medicine } from '../models/inveontry';
 import { ApiConfigService } from '@shared/services/api-config.service';
 import { CreatePurchacheDto } from '../models/purches.dto';
 import { PatientDto } from '../models/patient.dto';
-import { CreateSaleDto } from '../models/sales.dto';
+import { CreateSaleDto, ItemsSaleMedicineDto, ReportSaleMedicineDto } from '../models/sales.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +48,16 @@ export class MedicineService {
 
   createSale(sale:CreateSaleDto): Observable<void> {
     return this.http.post<void>(`${this.API_SALES}`, sale);
+  }
+
+
+  getReportSalesMedicinePerMedicineInRange(startDate?: string, endDate?: string): Observable<ReportSaleMedicineDto[]> {
+    let params = new HttpParams();
+    
+    if (startDate) params = params.set('startDate', startDate);
+    if (endDate) params = params.set('endDate', endDate);
+    
+    return this.http.get<ReportSaleMedicineDto[]>(`${this.API_SALES}/report/medicine`,  { params })
   }
 
 }
