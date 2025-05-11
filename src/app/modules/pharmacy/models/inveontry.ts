@@ -2,7 +2,7 @@ export interface Medicine {
     id: number;
     name: string;
     unitPrice: number;
-    cost: number;
+    unitCost: number;
     stock: number;
     minStock: number;
     createdAt: string;

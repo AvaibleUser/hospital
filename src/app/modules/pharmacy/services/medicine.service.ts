@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Medicine } from '../models/inveontry';
 import { ApiConfigService } from '@shared/services/api-config.service';
+import { CreatePurchacheDto } from '../models/purches.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { ApiConfigService } from '@shared/services/api-config.service';
 export class MedicineService {
   private readonly apiConfig = inject(ApiConfigService);
   private baseUrl = this.apiConfig.API_MEDICINE; 
+  private readonly API_PURCHES = this.apiConfig.API_PURCHES;
 
   constructor(private http: HttpClient) {}
 
@@ -30,5 +32,9 @@ export class MedicineService {
 
   update(id: number, medicine: Partial<Medicine>): Observable<Medicine> {
     return this.http.put<Medicine>(`${this.baseUrl}/${id}`, medicine);
+  }
+
+  createPurches(purhc:CreatePurchacheDto, medicineId:number): Observable<void> {
+    return this.http.post<void>(`${this.API_PURCHES}/${medicineId}`, purhc);
   }
 }

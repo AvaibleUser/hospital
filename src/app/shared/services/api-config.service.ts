@@ -22,6 +22,7 @@ export class ApiConfigService {
 
     //pharmacy
     API_MEDICINE = `${this.API_BASE_PHARMACY}/medicines`
+    API_PURCHES = `${this.API_BASE_PHARMACY}/purchaches`
 
     
     //users

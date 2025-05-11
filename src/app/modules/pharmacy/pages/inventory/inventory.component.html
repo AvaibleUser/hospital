@@ -1,16 +1,16 @@
 <div class="min-h-screen p-4">
-    <!-- Header -->
-    <header class="navbar ">
-      <div class="flex-1">
-        <h1 class="text-2xl font-bold ml-4">Gestión de Inventario</h1>
-      </div>
-      <div class="flex flex-row gap-3">
-        <button class="btn btn-primary" (click)="startCreateMedicine()">
-          <lucide-icon [name]="Plus" class="w-4 h-4"></lucide-icon>
-          Nuevo Medicamento
-        </button>
-      </div>
-    </header>
+  <!-- Header -->
+  <header class="navbar ">
+    <div class="flex-1">
+      <h1 class="text-2xl font-bold ml-4">Gestión de Inventario</h1>
+    </div>
+    <div class="flex flex-row gap-3">
+      <button class="btn btn-primary" (click)="startCreateMedicine()">
+        <lucide-icon [name]="Plus" class="w-4 h-4"></lucide-icon>
+        Nuevo Medicamento
+      </button>
+    </div>
+  </header>
 
   <!--Dialog to add medicine-->
   <dialog #newMedicine class="modal">
@@ -19,7 +19,7 @@
         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
       </form>
       <h2 class="text-lg font-bold mb-3">Nuevo Medicamento</h2>
-      <form [formGroup]="form" (ngSubmit)="createMedicine()" class="grid grid-cols-2 gap-4">
+      <form [formGroup]="form" class="grid grid-cols-2 gap-4">
         <div class="flex flex-col">
           <label>Nombre</label>
           <input type="text" class="input input-bordered w-full max-w-xs" formControlName="name" />
@@ -29,8 +29,8 @@
           <input type="text" class="input input-bordered w-full max-w-xs" formControlName="unitPrice" />
         </div>
         <div class="flex flex-col">
-          <label>Costo</label>
-          <input type="text" class="input input-bordered w-full max-w-xs" formControlName="cost" />
+          <label>Costo Unitario</label>
+          <input type="text" class="input input-bordered w-full max-w-xs" formControlName="unitCost" />
         </div>
         <div class="flex flex-col">
           <label>Stock</label>
@@ -87,10 +87,10 @@
             <td>{{ item.unitPrice | currency:'Q' }}</td>
             <td>{{ item.stock }}</td>
             <td>{{ item.minStock }}</td>
-            <td>{{ item.cost | currency:'Q' }}</td>
+            <td>{{ item.unitCost | currency:'Q' }}</td>
             <td class="flex gap-2">
               <button class="btn btn-sm btn-outline" (click)="editMedicine(item.id)">Editar</button>
-              <button class="btn btn-sm btn-outline" (click)="buyMedicine()">Comprar</button>
+              <button class="btn btn-sm btn-outline" (click)="buyMedicine(item.id)">Comprar</button>
             </td>
           </tr>
         </tbody>
@@ -98,3 +98,21 @@
     </div>
   </main>
 </div>
+
+
+<!-- Modal de Recarga -->
+<dialog #modal class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Comprar Medicamento</h3>
+
+    <p class="py-2">Ingrese la cantidad a comprar</p>
+
+    <input type="number" class="input input-bordered w-full" [(ngModel)]="quantity" name="salary"
+    placeholder="Ejemplo: 15" min="0" step="0.01" required />
+
+    <div class="modal-action">
+      <button class="btn btn-success" (click)="purchache()">Comprar</button>
+      <button class="btn btn-error" (click)="closeModalPurch()">Cancelar</button>
+    </div>
+  </div>
+</dialog>
