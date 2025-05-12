@@ -15,3 +15,17 @@ export interface ReportSalesTotal {
     items: SaleMedicineDto[]
 
 }
+
+export interface MedicinePurchacheDto {
+    medicineId: number;
+    name: string;
+    purchaseId: number;
+    quantity: number;
+    unitCost: number;
+    purchasedAt: Date;
+}
+
+export interface ReportExpenseMedicinePurchacheDto {
+    amountExpense: number;
+    items: MedicinePurchacheDto[];
+}

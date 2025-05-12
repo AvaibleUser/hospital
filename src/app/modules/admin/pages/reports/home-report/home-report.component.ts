@@ -16,6 +16,14 @@ export class HomeReportComponent {
     this.route.navigate([`admin/reports/income`]);
   }
 
+  goExpose(){
+    this.route.navigate([`admin/reports/expose`]);
+  }
+
+  goEarnings(){
+    this.route.navigate([`admin/reports/earnings`]);
+  }
+
   
 
 }

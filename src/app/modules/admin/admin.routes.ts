@@ -21,6 +21,11 @@ const adminRoutes: Routes = [
     loadComponent: () =>
       import('./pages/reports/report-income/report-income.component').then((m) => m.ReportIncomeComponent),
   },
+  {
+    path: 'reports/expose',
+    loadComponent: () =>
+      import('./pages/reports/report-expense/report-expense.component').then((m) => m.ReportExpenseComponent),
+  },
 ]
 
 export const ADMIN_ROUTES: Routes = [

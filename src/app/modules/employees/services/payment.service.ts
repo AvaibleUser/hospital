@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ApiConfigService } from '@shared/services/api-config.service';
 import { PaymentPerSurgeryDto } from '../models/payment.dto';
 import { Observable } from 'rxjs';
+import { ReportExpensePayEmployeeDto } from 'app/modules/admin/models/employees.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,14 @@ export class PaymentService {
 
   getAllPayments(): Observable<PaymentPerSurgeryDto[]> {
     return this._http.get<PaymentPerSurgeryDto[]>(`${this.API_PAYMENT}`)
+  }
+
+  getReportPayEmployeeInRange(startDate?: string, endDate?: string): Observable<ReportExpensePayEmployeeDto> {
+    let params = new HttpParams();
+
+    if (startDate) params = params.set('startDate', startDate);
+    if (endDate) params = params.set('endDate', endDate);
+
+    return this._http.get<ReportExpensePayEmployeeDto>(`${this.API_PAYMENT}/report/Expense`, { params })
   }
 }
