@@ -4,13 +4,13 @@
         @if (active) {
         <h2 class="text-2xl font-bold">Usuarios Inactivos</h2>
         <div class="space-x-2">
-            <button class="btn btn-outline btn-primary" (click)="getActiveFalse()">Ver Usuarios inactivos
-                (Solicitudes)</button>
+            <button class="btn btn-outline btn-primary" (click)="getActiveFalse()">Ver Usuarios Activos</button>
         </div>
         }@else {
         <h2 class="text-2xl font-bold">Usuarios Activos</h2>
         <div class="space-x-2">
-            <button class="btn btn-outline btn-accent" (click)="getActiveTrue()">Ver Solictudes</button>
+            <button class="btn btn-outline btn-accent" (click)="getActiveTrue()">Ver Usuarios inactivos
+                (Solicitudes)</button>
         </div>
         }
     </div>

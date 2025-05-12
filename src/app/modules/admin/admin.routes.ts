@@ -11,6 +11,26 @@ const adminRoutes: Routes = [
     loadComponent: () =>
       import('./pages/users/users.component').then((m) => m.UsersComponent),
   },
+  {
+    path: 'reports',
+    loadComponent: () =>
+      import('./pages/reports/home-report/home-report.component').then((m) => m.HomeReportComponent),
+  },
+  {
+    path: 'reports/income',
+    loadComponent: () =>
+      import('./pages/reports/report-income/report-income.component').then((m) => m.ReportIncomeComponent),
+  },
+  {
+    path: 'reports/expose',
+    loadComponent: () =>
+      import('./pages/reports/report-expense/report-expense.component').then((m) => m.ReportExpenseComponent),
+  },
+  {
+    path: 'reports/earnigs',
+    loadComponent: () =>
+      import('./pages/reports/report-earnings/report-earnings.component').then((m) => m.ReportEarningsComponent),
+  },
 ]
 
 export const ADMIN_ROUTES: Routes = [
