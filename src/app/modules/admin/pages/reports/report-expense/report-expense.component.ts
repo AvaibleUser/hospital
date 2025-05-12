@@ -25,7 +25,7 @@ export class ReportExpenseComponent {
   reportPurches: ReportExpenseMedicinePurchacheDto = { amountExpense: 0, items: [] }
 
 
-  getReportePaymentes(){
+  getReportePaymentes() {
     if (this.startDate === '' || this.endDate === '') {
       this._paymentService.getReportPayEmployeeInRange().subscribe({
         next: value => {
@@ -43,7 +43,7 @@ export class ReportExpenseComponent {
     })
   }
 
-  getReportePurches(){
+  getReportePurches() {
     if (this.startDate === '' || this.endDate === '') {
       this._pharmacyService.getReportExpensePurchasesMedicineInRange().subscribe({
         next: value => {
@@ -80,8 +80,8 @@ export class ReportExpenseComponent {
     }
   }
 
-  getTotal(){
-
+  getTotal(): number {
+    return this.reportPayEmployee.totalAmount + this.reportPurches.amountExpense;
   }
 
   formatDateTime(date: any): string {

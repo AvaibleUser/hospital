@@ -21,7 +21,7 @@ export class HomeReportComponent {
   }
 
   goEarnings(){
-    this.route.navigate([`admin/reports/earnings`]);
+    this.route.navigate([`admin/reports/earnigs`]);
   }
 
   

@@ -26,6 +26,6 @@ export class DashboardComponent {
 
 
   goReports(){
-    this.route.navigate(['admin/home-reports'])
+    this.route.navigate(['admin/reports'])
   }
 }
