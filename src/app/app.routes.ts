@@ -37,4 +37,12 @@ export const routes: Routes = [
         },
         loadChildren: () => import('./modules/admin/admin.routes').then(m => m.ADMIN_ROUTES),
     },
+    {
+        path: 'patient-management',
+        canActivate: [authGuard],
+        data: {
+            role: 'Encargado de Pacientes'
+        },
+        loadChildren: () => import('@patients/patients.routes').then((m) => m.routes),
+    },
 ];

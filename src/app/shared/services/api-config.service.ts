@@ -27,8 +27,6 @@ export class ApiConfigService {
     API_PURCHES = `${this.API_BASE_PHARMACY}/purchaches`;
     API_SALES = `${this.API_BASE_PHARMACY}/sales`;
 
-
-
     //users
     API_USER = `${this.API_BASE_AUTH}/user`;
     API_ROL = `${this.API_BASE_AUTH}/roles`;
@@ -38,6 +36,8 @@ export class ApiConfigService {
     API_BILL_ITEMS = `${this.API_BASE_WARD}/bill-items`
 
 
-
-
+    API_ROOM = `${this.API_BASE_WARD}/rooms`
+    API_ASSIGNED_EMPLOYEE = `${this.API_BASE_WARD}/assigned-employees`
+    API_SURGERY_SPECIALISTS = `${this.API_BASE_WARD}/surgery-specialists`
+    API_TARIFF = `${this.API_BASE_WARD}/tariffs`
 }
