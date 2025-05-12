@@ -19,7 +19,7 @@
 
         <!-- Footer -->
         <div class="p-4">
-            <button class="btn btn-ghost w-full justify-start">
+            <button class="btn btn-ghost w-full justify-start" (click)="authStore.logout()">
                 <lucide-icon [name]="LogOut" class="w-4 h-4"></lucide-icon>
                 Cerrar sesión
             </button>
