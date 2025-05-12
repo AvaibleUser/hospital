@@ -10,7 +10,10 @@
       ],
       "@shared/*": [
         "app/shared/*"
-      ]
+      ],
+      "@patients/*": [
+        "app/modules/patients/*"
+      ],
     },
     "outDir": "./dist/out-tsc",
     "strict": true,

@@ -1,5 +1,9 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { Alert, Alerts as AlertState } from './models/alert-store.model';
+import {
+  Alert,
+  Alerts as AlertState,
+  AlertWithTimeout,
+} from './models/alert-store.model';
 
 const initialState: AlertState = { alerts: [] };
 
@@ -7,15 +11,18 @@ export const AlertStore = signalStore(
   { providedIn: 'root' },
   withState(() => initialState),
   withMethods((store) => {
-    const removeAlert = () => {
+    const removeAlert = (alert?: AlertWithTimeout) => {
       patchState(store, (state: AlertState) => {
+        if (alert) {
+          clearTimeout(alert.timeout);
+        }
         state.alerts.shift();
         return { ...state };
       });
     };
     const addAlert = (alert: Alert) => {
       patchState(store, (state: AlertState) => {
-        setTimeout(() => {
+        const timeout = window.setTimeout(() => {
           removeAlert();
         }, 15000);
 
@@ -25,7 +32,7 @@ export const AlertStore = signalStore(
 
         return {
           ...state,
-          alerts: [...state.alerts, alert],
+          alerts: [...state.alerts, { ...alert, timeout }],
         };
       });
     };
