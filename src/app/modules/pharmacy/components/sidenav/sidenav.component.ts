@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthStore } from 'app/store/auth.store';
 import {
   Home,
   Package,
@@ -20,6 +21,7 @@ import {
   styleUrls: ['./sidenav.component.css'],
 })
 export class SidenavComponent {
+  readonly authStore = inject(AuthStore);
   readonly LogOut = LogOut;
   readonly PillBottle = PillBottle;
 
