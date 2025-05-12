@@ -3,14 +3,14 @@ describe('Login E2E', () => {
       cy.visit('http://localhost:4200/session/login');
   
       // Llenar el formulario
-      cy.get('input[name="email"]').type('brayan.quialo@gmail.com'); //Est usuario de farmacia
-      cy.get('input[name="password"]').type('contra123');
+      cy.get('input[name="email"]').type('elat122e@gmail.com'); //Este usuario es administrador
+      cy.get('input[name="password"]').type('12345678');
   
       // Enviar el formulario
       cy.get('button[type="submit"]').click();
   
       // Esperar redirección al dashboard correspondiente
-      cy.url().should('include', '/pharmacy'); 
+      cy.url().should('include', '/admin'); 
     });
   
     it('debería mostrar un error con credenciales incorrectas', () => {
