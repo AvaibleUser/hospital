@@ -1,76 +1,75 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Bill } from '@patients/models/bill.model';
+import { PatientBillsService } from '@patients/services/patient-bills.service';
+import { Page } from '@shared/models/pageable.model';
+import { ModalStore } from 'app/store/modal.store';
+import { ChevronLeft, ChevronRight, LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'patient-details-bills',
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
   templateUrl: './bills.component.html',
   styleUrl: './bills.component.css',
 })
 export class BillsComponent implements OnInit {
-  @Input() bills?: Bill[];
+  private readonly billsService = inject(PatientBillsService);
+  private readonly modalStore = inject(ModalStore);
 
+  readonly Previous = ChevronLeft;
+  readonly Next = ChevronRight;
+
+  bills?: Page<Bill>;
   currentBill?: Bill;
+  patientId: number = inject(ActivatedRoute).snapshot.params['id'];
 
   ngOnInit(): void {
-    this.bills = [
-      {
-        id: 1,
-        total: 100,
-        isClosed: true,
-        isPaid: true,
-        items: [
-          {
-            id: 1,
-            concept: 'Consulta',
-            amount: 10,
-            type: 'CONSULTATION',
-            createdAt: '2023-01-01T00:00:00.000Z',
-            updatedAt: '2023-01-01T00:00:00.000Z',
-          },
-          {
-            id: 2,
-            concept: 'Medicación',
-            amount: 20,
-            type: 'MEDICATION',
-            createdAt: '2023-01-01T00:00:00.000Z',
-            updatedAt: '2023-01-01T00:00:00.000Z',
-          },
-        ],
-        createdAt: '2023-01-01T00:00:00.000Z',
-        updatedAt: '2023-01-01T00:00:00.000Z',
-      },
-      {
-        id: 2,
-        total: 200,
-        isClosed: false,
-        isPaid: false,
-        items: [
-          {
-            id: 3,
-            concept: 'Consulta',
-            amount: 20,
-            type: 'CONSULTATION',
-            createdAt: '2023-01-02T00:00:00.000Z',
-            updatedAt: '2023-01-02T00:00:00.000Z',
-          },
-          {
-            id: 4,
-            concept: 'Medicación',
-            amount: 40,
-            type: 'MEDICATION',
-            createdAt: '2023-01-02T00:00:00.000Z',
-            updatedAt: '2023-01-02T00:00:00.000Z',
-          },
-        ],
-        createdAt: '2023-01-02T00:00:00.000Z',
-        updatedAt: '2023-01-02T00:00:00.000Z',
-      },
-    ];
+    this.fetchBills();
   }
 
-  ngOnChanges(): void {
-    this.currentBill = this.bills?.filter((bill) => bill.isClosed)[0];
+  fetchBills(next: boolean = false, previous: boolean = false) {
+    const page = (this.bills?.number || 0) + (+next || -previous);
+
+    this.billsService
+      .getAllPatientBills(this.patientId, { page })
+      .subscribe((bills) => {
+        this.bills = bills;
+      });
+
+    if (!next && !previous) {
+      this.billsService
+        .getPatientBillsByOpened(this.patientId)
+        .subscribe((bills) => {
+          this.currentBill = bills.pop();
+        });
+    }
+  }
+
+  createBill() {
+    this.modalStore.openModal(
+      () =>
+        import('@patients/modals/bills/add-bill/add-bill.modal').then(
+          (m) => m.AddBillModal
+        ),
+      {
+        patientId: this.patientId,
+        refreshBills: () => this.fetchBills(),
+      }
+    );
+  }
+
+  closeBill(bill: Bill) {
+    this.modalStore.openModal(
+      () =>
+        import('@patients/modals/bills/close-bill/close-bill.modal').then(
+          (m) => m.CloseBillModal
+        ),
+      {
+        patientId: this.patientId,
+        bill,
+        refreshBills: () => this.fetchBills(),
+      }
+    );
   }
 }
