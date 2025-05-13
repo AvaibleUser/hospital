@@ -2,7 +2,7 @@
 <div class="p-6 space-y-4">
     <!-- Botón de nuevo contrato -->
     <div class="flex flex-col md:flex-row gap-4 justify-end">
-        <button class="btn-outline btn btn-accent" (click)="openNewContract()">Nuevo Contrato</button>
+        <button data-cy="new-contract" class="btn-outline btn btn-accent" (click)="openNewContract()">Nuevo Contrato</button>
         @if (!contract.terminationReason) {
         <button class="btn-outline btn btn-secondary" (click)="openModalFisnish(false)">Finalizar Contrato</button>
         }
@@ -29,7 +29,7 @@
                 <!-- Teléfono -->
                 <div>
                     <label class="label font-semibold">Teléfono</label>
-                    <input class="input input-bordered w-full text-md" [(ngModel)]="employee.phone" />
+                    <input data-cy="phone-employee" class="input input-bordered w-full text-md" [(ngModel)]="employee.phone" />
                 </div>
                 <!-- Email -->
                 <div>
@@ -109,9 +109,9 @@
     <!-- Acciones -->
     <div class="flex flex-col md:flex-row gap-4 justify-end mt-6">
         @if (!contract.terminationReason) {
-        <button class="btn-outline btn btn-info" (click)="openModalUpdateSalary(true)">Aumento Salarial</button>
-        <button class="btn-outline btn btn-warning" (click)="openModalUpdateSalary(false)">ReducciónSalarial</button>
-        <button class="btn-outline btn btn-error" (click)="openModalFisnish(true)">Despido</button> 
+        <button data-cy="increase-salary" class="btn-outline btn btn-info" (click)="openModalUpdateSalary(true)">Aumento Salarial</button>
+        <button data-cy="decrease-salary" class="btn-outline btn btn-warning" (click)="openModalUpdateSalary(false)">ReducciónSalarial</button>
+        <button data-cy="dismissal" class="btn-outline btn btn-error" (click)="openModalFisnish(true)">Despido</button> 
         }
 
     </div>
@@ -162,17 +162,17 @@
         @if (isDimissal) {
         <h3 class="font-bold text-lg">Despido de empleado</h3>
 
-        <p class="py-2">Ingrese la descripcion del despido</p>
+        <p data-cy="dismissal-description" class="py-2">Ingrese la descripcion del despido</p>
         }@else {
         <h3 class="font-bold text-lg">Finalizacion de Contrato</h3>
 
         <p class="py-2">Ingrese la descripcion de la finalizacion</p>
         }
 
-        <input type="text" [(ngModel)]="description" class="input input-bordered w-full" placeholder="fin contrato.." />
+        <input data-cy="finish-contract-description" type="text" [(ngModel)]="description" class="input input-bordered w-full" placeholder="fin contrato.." />
 
         <div class="modal-action">
-            <button class="btn-outline btn btn-success" (click)="finishContract()">Confirmar</button>
+            <button data-cy="finish-contract" class="btn-outline btn btn-success" (click)="finishContract()">Confirmar</button>
             <button class="btn-outline btn-outlin btn btn-error" (click)="closeModalFinish()">Cancelar</button>
         </div>
 
