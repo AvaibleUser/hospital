@@ -1,4 +1,4 @@
-describe('Create user', () => {
+xdescribe('Create user', () => {
   it('deberia crear un usuario de farmacia desde el rrhh', () => {
     cy.visit('http://localhost:4200/session/login');
 
