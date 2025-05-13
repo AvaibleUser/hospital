@@ -2,7 +2,7 @@
 <div class="p-6 max-w-6xl mx-auto">
     <!-- Botón para nueva área -->
     <div class="flex justify-end mb-4">
-        <button class="btn-outline btn-primary btn btn-sl" (click)="openCreateArea()">
+        <button data-cy="new-area" class="btn-outline btn-primary btn btn-sl" (click)="openCreateArea()">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -50,13 +50,14 @@
         }
         <p class="py-2">Ingrese el nuevo nombre del area:</p>
 
-        <input type="text" [(ngModel)]="nameArea" class="input input-bordered w-full" placeholder="Nueva Area" />
+        <input type="text" [(ngModel)]="nameArea" data-cy="name-area" class="input input-bordered w-full"
+            placeholder="Nueva Area" />
 
         <div class="modal-action">
             @if (isEditModalOpen) {
-            <button class="btn btn-success" (click)="updateArea()">Actualizar</button>
+            <button data-cy="update-area" class="btn btn-success" (click)="updateArea()">Actualizar</button>
             }@else {
-            <button class="btn btn-success" (click)="createArea()">Registrar</button>
+            <button data-cy="create-area" class="btn btn-success" (click)="createArea()">Registrar</button>
             }
 
             <button class="btn btn-error" (click)="closeModal()">Cancelar</button>

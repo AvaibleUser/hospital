@@ -51,4 +51,58 @@ describe('Employee', () => {
         // Finalizar el contrato
         cy.get('button[data-cy="finish-contract"]').click();
     })
+
+    it('Deberia crear una nueva area de trabajo', () => {
+        cy.visit('http://localhost:4200/session/login');
+
+        cy.get('input[name="email"]').type('hr@mail.com');
+        cy.get('input[name="password"]').type('contra123');
+        cy.get('button[type="submit"]').click();
+
+        //Esperar a que se cargue la pagina
+        cy.contains('Bienvenido al Dashboard').should('exist');
+
+        //Ir a la pagaina de gestion de areas
+        cy.visit('http://localhost:4200/employee-management/areas');
+
+        //Esperar a que se cargue la pagina
+        cy.contains('Gestion de Áreas de trabajo').should('exist');
+
+        //Crear una nueva area
+        cy.get('button[data-cy="new-area"]').click();
+
+        //Esperar a que se cargue el modal
+        cy.contains('Crear nuevo area de trabajo').should('exist');
+
+        //Llenar el formulario
+        cy.get('input[data-cy="name-area"]').type('Area de Prueba E2E');
+
+        //Crear la nueva area
+        cy.get('button[data-cy="create-area"]').click();
+
+        //Esperar a que se muestre el mensaje de éxito
+        cy.contains('El area ha sido registrada exitosamente').should('exist');
+
+        //Cerrar el modal
+        cy.get('button[data-cy="close-modal"]').first().click();
+
+        //Modificar el nombre de la area
+        cy.contains('td', 'Area de Prueba E2E').parent('tr').find('button.btn-info').click();
+
+        //Esperar a que se cargue el modal
+        cy.contains('Editar Area de trabajo').should('exist');
+
+        //Modificar el nombre de la area
+        cy.get('input[data-cy="name-area"]').clear().type('Area de Prueba E2E Modificada');
+
+        //Actualizar la area
+        cy.get('button[data-cy="update-area"]').click();
+
+        //Esperar a que se muestre el mensaje de éxito
+        cy.contains('El area ha sido Actuilizada exitosamente').should('exist');
+        
+        
+        
+        
+    })
 })
