@@ -79,7 +79,9 @@ export class AreasComponent {
   }
 
   openCreateArea() {
+    this.nameArea = ''
     this.isRegisterOpen = true;
+    this.isEditModalOpen = false;
     this.selectedArea = undefined;
     this.modalRef.nativeElement.showModal();
 
@@ -89,6 +91,7 @@ export class AreasComponent {
     this.selectedArea = area
     this.nameArea = area.name
     this.isEditModalOpen = true;
+    this.isRegisterOpen = false;
     this.modalRef.nativeElement.showModal();
   }
 
