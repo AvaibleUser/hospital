@@ -1,4 +1,4 @@
-xdescribe('Create user', () => {
+describe('Create user', () => {
   it('deberia crear un usuario de farmacia desde el rrhh', () => {
     cy.visit('http://localhost:4200/session/login');
 
@@ -97,4 +97,15 @@ xdescribe('Create user', () => {
 
     cy.url().should('include', '/pharmacy');
   });
+
+  it('Deberia de fallar el login', () => {
+    cy.visit('http://localhost:4200/session/login');
+
+    cy.get('input[name="email"]').type('brayan.quialo@gmail.com');
+    cy.get('input[name="password"]').type('contra1234');
+
+    cy.get('button[type="submit"]').click();
+
+    cy.contains('El email o la contraseña es incorrecta').should('exist');
+  })
 });
