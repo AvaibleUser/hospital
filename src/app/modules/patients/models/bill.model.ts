@@ -24,11 +24,7 @@ export type BillItem = Omit<
   updatedAt?: string;
 };
 
-export interface NewBill {
-  patientId: number;
-}
-
-export type Bill = Omit<NewBill, 'patientId'> & {
+export interface Bill {
   id: number;
   total?: number;
   isClosed: boolean;
@@ -36,4 +32,8 @@ export type Bill = Omit<NewBill, 'patientId'> & {
   items?: BillItem[];
   createdAt: string;
   updatedAt?: string;
-};
+}
+
+export type NewBill = {};
+
+export type UpdateBill = Pick<Bill, 'isClosed' | 'isPaid'>;
