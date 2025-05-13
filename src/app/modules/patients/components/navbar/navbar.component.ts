@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthStore } from 'app/store/auth.store';
 
 @Component({
   selector: 'patients-navbar',
@@ -6,4 +7,8 @@ import { Component } from '@angular/core';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+
+  readonly authStore = inject(AuthStore);
+
+}
