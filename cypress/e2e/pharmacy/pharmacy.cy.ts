@@ -34,4 +34,38 @@ describe('Pharmacy', () => {
         //Esperar a que se cargue el modal de respuesta
         cy.contains('Medicamento creado correctamente').should('exist');
     });
+
+    it('Deberia comprar un medicamento', () => {
+        cy.visit('http://localhost:4200/session/login');
+
+        // Llenar el formulario
+        cy.get('input[name="email"]').type('brayan.quialo@gmail.com'); //Este usuario es de rrhh
+        cy.get('input[name="password"]').type('contra123');
+
+        // Enviar el formulario
+        cy.get('button[type="submit"]').click();
+
+        // Esperar redirección al dashboard de administrador
+        cy.url().should('include', '/pharmacy');
+
+        cy.visit('http://localhost:4200/pharmacy/inventory');
+
+        //Esperar a que se cargue la pagina
+        cy.contains('Gestión de Inventario').should('exist');
+
+        //Comprar un medicamento
+        cy.get('button[data-cy="buy-medicine"]').click();
+
+        //Esperar a que se cargue el modal de respuesta
+        cy.contains('Comprar Medicamento').should('exist');
+
+        //Llenar el formulario
+        cy.get('input[name="medecine-quantity"]').type('10');
+
+        //Comprar el medicamento
+        cy.get('button[data-cy="buy-medicine-confirm"]').click();
+
+        //Esperar a que se cargue el modal de respuesta
+        cy.contains('Compra de medicamento exitoso, el stock se ha actualizado').should('exist');
+    });
 });

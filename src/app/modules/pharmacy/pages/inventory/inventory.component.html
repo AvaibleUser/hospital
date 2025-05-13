@@ -90,7 +90,7 @@
             <td>{{ item.unitCost | currency:'Q' }}</td>
             <td class="flex gap-2">
               <button class="btn btn-sm btn-outline" (click)="editMedicine(item.id)">Editar</button>
-              <button class="btn btn-sm btn-outline" (click)="buyMedicine(item.id)">Comprar</button>
+              <button data-cy="buy-medicine" class="btn btn-sm btn-outline" (click)="buyMedicine(item.id)">Comprar</button>
             </td>
           </tr>
         </tbody>
@@ -107,11 +107,11 @@
 
     <p class="py-2">Ingrese la cantidad a comprar</p>
 
-    <input type="number" class="input input-bordered w-full" [(ngModel)]="quantity" name="salary"
+    <input type="number" class="input input-bordered w-full" [(ngModel)]="quantity" name="medecine-quantity"
     placeholder="Ejemplo: 15" min="0" step="0.01" required />
 
     <div class="modal-action">
-      <button class="btn btn-success" (click)="purchache()">Comprar</button>
+      <button data-cy="buy-medicine-confirm" class="btn btn-success" (click)="purchache()">Comprar</button>
       <button class="btn btn-error" (click)="closeModalPurch()">Cancelar</button>
     </div>
   </div>
