@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AdmissionsComponent } from '@patients/components/details/admissions/admissions.component';
 import { BillsComponent } from '@patients/components/details/bills/bills.component';
-import { ConsultsComponent } from '@patients/components/details/consults/consults.component';
+import { ConsultationsComponent } from '@patients/components/details/consultations/consultations.component';
 import { SurgeriesComponent } from '@patients/components/details/surgeries/surgeries.component';
 import { Patient } from '@patients/models/patient.model';
 import { PatientService } from '@patients/services/patient.service';
@@ -13,7 +13,7 @@ import { PatientService } from '@patients/services/patient.service';
     AdmissionsComponent,
     SurgeriesComponent,
     BillsComponent,
-    ConsultsComponent,
+    ConsultationsComponent,
   ],
   templateUrl: './patient-details.page.html',
   styleUrl: './patient-details.page.css',

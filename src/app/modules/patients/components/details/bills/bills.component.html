@@ -3,7 +3,9 @@
     <div class="flex justify-between items-center mb-4">
       <h2 class="card-title text-secondary">Facturas</h2>
       @if (!currentBill) {
-      <button class="btn btn-xs btn-primary">Nueva Factura</button>
+      <button class="btn btn-xs btn-primary" (click)="createBill()">
+        Nueva Factura
+      </button>
       }
     </div>
 
@@ -21,11 +23,19 @@
               <span class="opacity-70">Creada:</span>
               {{ bill.createdAt | date : "dd/MM/yyyy" }}
             </p>
+            <p class="opacity-40 text-xs my-2">
+              <span class="underline">Nota:</span>
+              Para agregar un concepto, agrega una hospitalizacion, una consulta
+              o una cirugía
+            </p>
           </div>
         </div>
+
         <div class="flex justify-end gap-2 mt-2">
-          <button class="btn btn-xs btn-success">Agregar Concepto</button>
-          <button class="btn btn-xs btn-error btn-outline">
+          <button
+            class="btn btn-xs btn-error btn-outline"
+            (click)="closeBill(bill)"
+          >
             Cerrar Factura
           </button>
         </div>
@@ -33,7 +43,7 @@
     </div>
 
     <div class="divider"></div>
-    } @if (!bills?.length) {
+    } @if (!bills?.content?.length) {
     <div class="text-center text-accent h-full flex items-center">
       <p class="text-2xl">No se encontraron facturas</p>
     </div>
@@ -49,7 +59,7 @@
         </thead>
 
         <tbody>
-          @for (bill of bills; track bill.id) {
+          @for (bill of bills?.content; track bill.id) {
           <tr class="even:bg-base-200 hover:bg-accent-content">
             <td>{{ bill.createdAt | date }}</td>
             <td>
@@ -75,6 +85,30 @@
           }
         </tbody>
       </table>
+    </div>
+
+    <div class="flex justify-center items-center gap-2 mt-auto">
+      <button
+        class="btn btn-xs btn-ghost"
+        [class.btn-disable]="bills?.first"
+        [class.text-primary]="!bills?.first"
+        (click)="!bills?.first && fetchBills(false, true)"
+      >
+        <i-lucide [img]="Previous" />
+      </button>
+
+      <span class="text-xs text-center">
+        {{ (bills?.number || 0) + 1 }} de {{ bills?.totalPages || 0 }}
+      </span>
+
+      <button
+        class="btn btn-xs btn-ghost"
+        [class.btn-disable]="bills?.last"
+        [class.text-primary]="!bills?.last"
+        (click)="!bills?.last && fetchBills(true, false)"
+      >
+        <i-lucide [img]="Next" />
+      </button>
     </div>
     }
   </div>
