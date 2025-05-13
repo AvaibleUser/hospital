@@ -8,11 +8,10 @@ export enum BillItemType {
 export interface NewBillItem {
   concept: string;
   amount?: number;
-  type: keyof typeof BillItemType;
   saleId?: number;
   admissionId?: number;
   surgeryId?: number;
-  billId?: number;
+  billId: number;
 }
 
 export type BillItem = Omit<
@@ -20,6 +19,7 @@ export type BillItem = Omit<
   'saleId' | 'admissionId' | 'surgeryId' | 'billId'
 > & {
   id: number;
+  type: keyof typeof BillItemType;
   createdAt: string;
   updatedAt?: string;
 };
