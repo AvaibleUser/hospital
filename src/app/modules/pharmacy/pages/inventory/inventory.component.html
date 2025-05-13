@@ -5,7 +5,7 @@
       <h1 class="text-2xl font-bold ml-4">Gestión de Inventario</h1>
     </div>
     <div class="flex flex-row gap-3">
-      <button class="btn btn-primary" (click)="startCreateMedicine()">
+      <button data-cy="create-medicine" class="btn btn-primary" (click)="startCreateMedicine()">
         <lucide-icon [name]="Plus" class="w-4 h-4"></lucide-icon>
         Nuevo Medicamento
       </button>
@@ -22,31 +22,31 @@
       <form [formGroup]="form" class="grid grid-cols-2 gap-4">
         <div class="flex flex-col">
           <label>Nombre</label>
-          <input type="text" class="input input-bordered w-full max-w-xs" formControlName="name" />
+          <input type="text" class="input input-bordered w-full max-w-xs" formControlName="name" name="name" />
         </div>
         <div class="flex flex-col">
           <label>Precio Unitario</label>
-          <input type="text" class="input input-bordered w-full max-w-xs" formControlName="unitPrice" />
+          <input type="text" class="input input-bordered w-full max-w-xs" formControlName="unitPrice" name="unitPrice" />
         </div>
         <div class="flex flex-col">
           <label>Costo Unitario</label>
-          <input type="text" class="input input-bordered w-full max-w-xs" formControlName="unitCost" />
+          <input type="text" class="input input-bordered w-full max-w-xs" formControlName="unitCost" name="unitCost" />
         </div>
         <div class="flex flex-col">
           <label>Stock</label>
-          <input type="text" class="input input-bordered w-full max-w-xs" formControlName="stock" />
+          <input type="text" class="input input-bordered w-full max-w-xs" formControlName="stock" name="stock" />
         </div>
         <div class="flex flex-col">
           <label>Mínimo en Stock</label>
-          <input type="text" class="input input-bordered w-full max-w-xs" formControlName="minStock" />
+          <input type="text" class="input input-bordered w-full max-w-xs" formControlName="minStock" name="minStock" />
         </div>
       </form>
       <div class="modal-action">
         <button class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
         @if (editMode) {
-        <button class="btn btn-primary" (click)="updateMedicine()">Actualizar</button>
+        <button data-cy="update-medicine" class="btn btn-primary" (click)="updateMedicine()">Actualizar</button>
         } @else {
-        <button class="btn btn-primary" (click)="createMedicine()">Crear</button>
+        <button data-cy="create-medicine-confirm" class="btn btn-primary" (click)="createMedicine()">Crear</button>
         }
       </div>
     </div>
