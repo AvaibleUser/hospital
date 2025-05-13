@@ -12,7 +12,8 @@
       (change)="search($event)"
     />
 
-    <button
+    <button 
+      data-cy="add-patient"
       class="btn btn-sm btn-soft outline btn-secondary tooltip px-1"
       data-tip="Crear nuevo paciente"
       (click)="addPatient()"
@@ -66,14 +67,16 @@
 
       <div class="shrink flex flex-col justify-around gap-1">
         <button
+          data-cy="edit-patient"
           class="btn btn-xs btn-soft btn-warning px-1.5 tooltip"
           data-tip="Editar Paciente"
           (click)="editPatient(patient.id)"
         >
           <i-lucide [img]="Edit" size="18" />
-        </button>
+        </button> 
 
         <a
+          data-cy="patient-details"
           class="btn btn-xs btn-soft btn-info px-1.5 tooltip"
           data-tip="Detalles del Paciente"
           [routerLink]="['/patient-management/patient', patient.id, 'details']"

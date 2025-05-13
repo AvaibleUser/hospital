@@ -46,6 +46,7 @@
 
   <div class="flex justify-evenly mb-2">
     <button
+      data-cy="add-employee"
       class="btn btn-outline transition-all duration-300 ease-in-out"
       [class.btn-primary]="!appending"
       [class.btn-disabled]="appending || this.appendForm.invalid"
@@ -57,6 +58,7 @@
     </button>
 
     <button
+      data-cy="assign-employee-confirm"
       class="btn transition-all duration-300 ease-in-out"
       [class.btn-primary]="!appending"
       [class.btn-disabled]="appending || this.appendForm.invalid"
