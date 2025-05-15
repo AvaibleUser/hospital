@@ -3,7 +3,7 @@
     <div class="flex justify-between items-center mb-4">
       <h2 class="card-title text-secondary">Facturas</h2>
       @if (!currentBill) {
-      <button class="btn btn-xs btn-primary" (click)="createBill()">
+      <button data-cy="create-bill" class="btn btn-xs btn-primary" (click)="createBill()">
         Nueva Factura
       </button>
       }
@@ -33,6 +33,7 @@
 
         <div class="flex justify-end gap-2 mt-2">
           <button
+            data-cy="close-bill"
             class="btn btn-xs btn-error btn-outline"
             (click)="closeBill(bill)"
           >

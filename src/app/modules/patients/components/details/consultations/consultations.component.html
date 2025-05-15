@@ -2,7 +2,11 @@
   <div class="card-body">
     <div class="flex justify-between items-center mb-4">
       <h2 class="card-title text-secondary">Consultas Médicas</h2>
-      <button class="btn btn-xs btn-primary" (click)="createConsultation()">
+      <button
+        data-cy="create-consultation"
+        class="btn btn-xs btn-primary"
+        (click)="createConsultation()"
+      >
         Nueva Consulta
       </button>
     </div>

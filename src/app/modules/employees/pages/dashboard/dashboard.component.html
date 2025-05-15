@@ -28,7 +28,7 @@
       <h2 class="card-title text-primary">Registrar Empleado</h2>
       <p>Agrega un nuevo empleado al sistema o inicia un nuevo contrato para uno existente.</p>
       <div class="card-actions justify-end">
-        <button class="btn btn-primary" (click)="goRegister()">Ir</button>
+        <button data-cy="register-employee" class="btn btn-primary" (click)="goRegister()">Ir</button>
       </div>
     </div>
   </div>
@@ -39,7 +39,7 @@
       <h2 class="card-title text-secondary">Gestión de Vacaciones</h2>
       <p>Aprueba o rechaza solicitudes de vacaciones realizadas por el personal.</p>
       <div class="card-actions justify-end">
-        <button class="btn btn-secondary" (click)="goVacations()">Ir</button>
+        <button data-cy="go-vacations" class="btn btn-secondary" (click)="goVacations()">Ir</button>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@
       <h2 class="card-title text-info">Gestión de Empleados</h2>
       <p>Administra la historia laboral, contratos, salarios y despidos del personal.</p>
       <div class="card-actions justify-end">
-        <button class="btn btn-info" (click)="goGestion()">Ir</button>
+        <button data-cy="go-gestion" class="btn btn-info" (click)="goGestion()">Ir</button>
       </div>
     </div>
   </div>
