@@ -50,30 +50,4 @@ describe('Vacations', () => {
         //Esperar mensaje de aprobación
         cy.contains('La solicitud de vacaciones del empleado ha sido aceptada con exito').should('exist');
     })
-
-    xit('should accept vacations', () => {
-        cy.visit('http://localhost:4200/session/login');
-
-        // Llenar el formulario
-        cy.get('input[name="email"]').type('hr@mail.com'); //Este usuario es de rrhh
-        cy.get('input[name="password"]').type('contra123');
-
-        // Enviar el formulario
-        cy.get('button[type="submit"]').click();
-
-        // Esperar redirección al dashboard de administrador
-        cy.url().should('include', '/employee-management');
-
-        // Ir a la pagina de vacaciones
-        cy.get('button[data-cy="go-vacations"]').click();
-
-        // Esperar redirección a la pagina de vacaciones
-        cy.url().should('include', '/employee-management/vacations');
-
-        // Aprobar la solicitud
-        cy.get('button[data-cy="approve-request"]').click();
-
-        // Esperar mensaje de aprobación
-        cy.contains('La solicitud de vacaciones del empleado ha sido aceptada con exito').should('exist');
-    });
 });
