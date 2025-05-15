@@ -25,8 +25,11 @@ describe('Create user', () => {
 
     // Llenar el formulario. PASO 2
     cy.get('input[name="startDate"]', { timeout: 10000 }).should('be.visible');
-    const today = new Date().toISOString().split('T')[0];
-    cy.get('input[name="startDate"]').type(today);
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+    const formattedDate = threeMonthsAgo.toISOString().split('T')[0];
+
+    cy.get('input[name="startDate"]').type(formattedDate);
     cy.get('input[name="salary"]').type('5000');
     cy.get('input[name="iggs"]').type('4.83');
     cy.get('input[name="irtra"]').type('1.00');
