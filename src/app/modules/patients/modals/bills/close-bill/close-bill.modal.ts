@@ -52,10 +52,17 @@ export class CloseBillModal {
         },
         error: (err) => {
           this.closing = false;
-          this.alertStore.addAlert({
-            message: 'No se pudo cerrar la factura, intente mas tarde',
-            type: 'error',
-          });
+          if (err.status === 409) {
+            this.alertStore.addAlert({
+              message: err.error.message,
+              type: 'error',
+            });
+          } else {
+            this.alertStore.addAlert({
+              message: 'No se pudo cerrar la factura, intente mas tarde',
+              type: 'error',
+            });
+          }
           console.log(err);
         },
       });

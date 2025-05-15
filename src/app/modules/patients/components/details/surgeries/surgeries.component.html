@@ -22,7 +22,7 @@
           <tr>
             <th>Fecha</th>
             <th>Descripción</th>
-            <th>Costos</th>
+            <th>Precio</th>
             <th>Especialistas</th>
             <th>Estado</th>
             <th></th>
@@ -35,22 +35,10 @@
             <td>{{ surgery.performedDate | date : "dd/MM/yyyy" }}</td>
             <td>{{ surgery.description || "N/A" }}</td>
             <td>
-              <div class="text-xs">
-                <p>
-                  <span class="opacity-70">Hospital:</span>
-                  {{
-                    (surgery.tariffHospitalCost
-                      | currency : "GTQ" : "symbol-narrow") || "N/A"
-                  }}
-                </p>
-                <p>
-                  <span class="opacity-70">Honorarios:</span>
-                  {{
-                    (surgery.tariffSpecialistFee
-                      | currency : "GTQ" : "symbol-narrow") || "N/A"
-                  }}
-                </p>
-              </div>
+              {{
+                (surgery.tariffPrice | currency : "GTQ" : "symbol-narrow") ||
+                  "N/A"
+              }}
             </td>
             <td>
               <div class="text-xs">
