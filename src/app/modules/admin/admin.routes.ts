@@ -12,6 +12,11 @@ const adminRoutes: Routes = [
       import('./pages/users/users.component').then((m) => m.UsersComponent),
   },
   {
+    path: 'rooms',
+    loadComponent: () =>
+      import('./pages/rooms-managment/rooms-managment.component').then((m) => m.RoomsManagmentComponent),
+  },
+  {
     path: 'reports',
     loadComponent: () =>
       import('./pages/reports/home-report/home-report.component').then((m) => m.HomeReportComponent),

@@ -21,7 +21,7 @@ export class DashboardComponent {
   }
 
   goRooms(){
-    this.route.navigate(['admin/management-rooms'])
+    this.route.navigate(['admin/rooms'])
   }
 
 
