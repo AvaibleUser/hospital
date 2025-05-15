@@ -20,11 +20,11 @@ export class RoomService {
     return this._http.get<RoomResponseDto[]>(`${this.API_ROOM}/all`)
   }
 
-  createArea(cerateRoom: CreateRoom): Observable<RoomResponseDto> {
+  createRoom(cerateRoom: CreateRoom): Observable<RoomResponseDto> {
     return this._http.post<RoomResponseDto>(`${this.API_ROOM}`, cerateRoom)
   }
 
-  updateNameArea(updateRoom: CreateRoom, roomId:number): Observable<RoomResponseDto> {
+  updateRoom(updateRoom: CreateRoom, roomId:number): Observable<RoomResponseDto> {
     return this._http.patch<RoomResponseDto>(`${this.API_ROOM}/${roomId}`, updateRoom)
   }
 }
