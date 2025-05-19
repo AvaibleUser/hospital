@@ -4,6 +4,7 @@ import { ApiConfigService } from '@shared/services/api-config.service';
 import { CreateEmployeeDto, EmployeeDto, EmployeeResponseDto } from '../models/employee.dto';
 import { Observable } from 'rxjs';
 import { ReportAssignedEmployeeDto } from '../models/reports.dto';
+import { UpdateEmployeeDto } from '../models/contract.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,10 @@ export class EmployeeService {
     if (startDate) params = params.set('startDate', startDate);
     if (endDate) params = params.set('endDate', endDate);
     return this._http.get<ReportAssignedEmployeeDto>(`${this.API_EMPLOYEE}/assigned/report/doctors/${filter}`, { params })
+  }
+
+  updateAreaEmployee(employeeId:number, employeeUpdate:UpdateEmployeeDto): Observable<void> {
+    return this._http.put<void>(`${this.API_EMPLOYEE}/${employeeId}`, employeeUpdate)
   }
 
 }

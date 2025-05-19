@@ -6,7 +6,7 @@ import { EmployeeService } from '../../services/employee.service';
 import { Router } from '@angular/router';
 import { AreaService } from '../../services/area.service';
 import { ContractService } from '../../services/contract.service';
-import { ContractDto, FinishContractDto, UpdateSalaryDto } from '../../models/contract.dto';
+import { ContractDto, FinishContractDto, UpdateEmployeeDto, UpdateSalaryDto } from '../../models/contract.dto';
 import { FormNewContractComponent } from '../../components/form-new-contract/form-new-contract.component';
 import { ModalMsgComponent } from '@shared/components/modal-msg/modal-msg.component';
 
@@ -142,7 +142,8 @@ export class ViewEmployeeComponent {
     }
 
     const finish: FinishContractDto = {
-      description: this.description
+      description: this.description,
+      cui:this.employee.cui
     }
 
     if (this.isDimissal) {
@@ -225,4 +226,36 @@ export class ViewEmployeeComponent {
   }
 
 
+  updateEmployeeArea(){
+
+    if (this.employee.email === '' || this.employee.phone === '') {
+      this.calssValue = this.classWarning;
+      this.titleModal = 'Campos inválidos';
+      this.hanglerErrorMsg('Email y telefono no puden estar vacios');
+      return
+    }
+
+    const areaId: number = this.areas.find(ar => ar.name === this.employee.areaName)?.id || 0;
+
+    const employeeUpdate:UpdateEmployeeDto = {
+      areId:Number(areaId),
+      email:this.employee.email,
+      phone:this.employee.phone
+    }
+
+    this._employeeService.updateAreaEmployee(this.employee.id, employeeUpdate).subscribe({
+      next: value =>{
+        this.calssValue = this.classSucces
+        this.titleModal = 'Datos Actualizados'
+        this.contentModal = 'Los Datos el empleado se han actualizado con exito'
+        this.modalRef2.nativeElement.showModal();
+      },
+      error: err =>{
+        this.calssValue = this.classError
+        this.titleModal = 'Error al actualizar '
+        this.hanglerError(err)
+      }
+    })
+    
+  }
 }

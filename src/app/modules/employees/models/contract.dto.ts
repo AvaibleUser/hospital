@@ -21,9 +21,16 @@ export interface NewContractDto {
 
 export interface FinishContractDto {
     description: string;
+    cui: string;
 }
 
 export interface UpdateSalaryDto {
     salary: number;
     isIncrement: boolean;
+}
+
+export interface UpdateEmployeeDto {
+    phone: string;
+    email: string;
+    areId: number;
 }
